@@ -3,15 +3,20 @@ import React, {useRef, useEffect} from "react";
 import Map from "../Map";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { getUserData } from "../redux/reducers/userSlice";
+import { addUserData } from "../redux/reducers/userSlice";
 
 
 export default function Modal() {
   const [showModal, setShowModal] = React.useState(false);
   const ModalRef = useRef(0)
+  const [data, setData] = useState(useSelector(getUserData))
+	const [getLan, setGetLan] = useState({lat : data.lat, lng : data.lng})
 
+	useEffect(() => {
 
-  useEffect(() => {
-    
     const HanleModal = (event) => {
         if (ModalRef.current && !ModalRef.current.contains(event.target)) {
             setShowModal(false)
@@ -23,7 +28,14 @@ export default function Modal() {
       document.removeEventListener('click',HanleModal,true);
     }
   }, [showModal])
-  
+  const dispatch = useDispatch();
+  const saveposition = async () => {
+	setShowModal(false)
+	setData({...data, ...getLan})
+	dispatch(addUserData({...data, ...getLan}));
+  }
+
+
   return (
     <>
 	<div className='flex justify-center items-center w-full max-w-[350px] h-auto' onClick={() => setShowModal(true)}>
@@ -38,10 +50,10 @@ export default function Modal() {
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
           >
                 <div ref={ModalRef} className="w-[30%] h-[50%] flex flex-col p-10 bg-white gap-10 rounded-xl">
-                    <Map />
+                    <Map getLan={getLan}  setGetLan={setGetLan}/>
                     <div className="flex justify-between  w-full ">
                         <button className="w-[40%] self-center" onClick={() => setShowModal(false) }>close</button>
-                        <button className="w-[40%] self-center">save</button>
+                        <button className="w-[40%] self-center" onClick={saveposition}>save</button>
                     </div>
                    
                 </div> 

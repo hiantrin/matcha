@@ -1,79 +1,46 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
-import { addUserData } from './redux/reducers/userSlice';
-import { useEffect } from 'react';
+import {  useSelector } from 'react-redux';
+import { getUserData } from './redux/reducers/userSlice';
 import { useState } from 'react';
 import getInstance from './instances/help2';
 import Modal from './Modal/Modal';
+import swal from 'sweetalert';
 
 const Personalinfos = () => {
-
-	const [userInfo, SetUserInfo] = useState({
-		username : "",
-		firstName : "",
-		lastName : "",
-		email : "",
-		biography : "",
-		birthDay : "",
-	});
-	const [errors, setErrors] = useState({})
-	const [position, setPosition ] = useState({
-		latitude: null,
-		longitude: null
-})
-
-	const returndata = async () => {
-		const res = await getInstance.get('/getInfos/infos');
-		return res;
-	}
-
-
+	const userInfos = useSelector(getUserData);
 	
-	const dispatch = useDispatch();
-	// const diskotek = (infos) => {
-		
-	// }
-	useEffect( () => {
-		const fix_date = (date) => {
-			const mp = [date.substr(0, 4) , date.substr(5, 2), date.substr(8, 2)];			
-			return mp.join('-');
-		}
-		const setpos = (data) => {
-			const posi = {
-				longitude : data.lng,
-				latitude : data.lat
-			}
-			setPosition(posi);
-		}
-		const Fetchdata = async () => {
-			const { data : {userInfos} } = await returndata();
-			const date = fix_date(userInfos[0].birthDay.substr(0, 10));
-			userInfos[0].birthDay = date;
-			dispatch(addUserData(userInfos[0]));
-			setpos(userInfos[0]);
-			SetUserInfo(userInfos[0]);
-		}
-		Fetchdata()
-	}, [dispatch])
+	
+	const [userInfo, setUserInfo] = useState({
+		username : userInfos.username,
+		firstName : userInfos.firstName,
+		lastName : userInfos.lastName,
+		email : userInfos.email,
+		biography : userInfos.biography,
+		birthDay : userInfos.birthDay,
+	});
+	
+
+	const [country, setCountry] = useState("Uknown");
+	const [errors, setErrors] = useState({})
 
 	const handleit = (e) => {
         const  name = e.target.name;
-		console.log(e.target.value);
-        SetUserInfo({...userInfo , [name] : e.target.value});
+        setUserInfo({...userInfo , [name] : e.target.value});
 		
     }
 
 	const redirect = () => {
 		const er = validate();
 		if(er) setErrors(er);
-		else change_in_back()
+		else {
+			setErrors({});
+			change_in_back()
+		}
 	}
 
 	const validate = () => {
 		const error = {};
 		const form = userInfo;
-		console.log( "hna validateform =>>");
-		console.log(form);
 		var bday = form.birthDay;
 		bday = bday.split("-");
 		var bday_in_milliseconds = new Date(parseInt(bday[0], 10), parseInt(bday[1], 10) - 1 , parseInt(bday[2]), 10).getTime();
@@ -104,16 +71,59 @@ const Personalinfos = () => {
 		if (Object.keys(error).length === 0) {
             return false;
 		}
-		console.log(error);
 		return (error);
 	}
 
+	const success =  async (lat, lng) => {
+        const geoapiurl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage-en`
+        
 
-	const change_in_back = () => {
-
-	}
+        await fetch(geoapiurl).then(res => res.json()).then(data => {
+            const con = data.countryName;
+            setCountry(con);
+        })
+    }
 	
 
+	const change_in_back = async () =>{
+		const {lat, lng} = userInfos;
+		const error = {};
+		success(lat, lng);
+		const token = localStorage.getItem('authToken');
+		console.log(token);
+		console.log(lat, lng)
+		const res = await getInstance(token).post("/editProfileInfo/infoValidator", {
+			...userInfo,
+			lat : lat,
+			lng : lng,
+			country,
+		})
+		if (res.data.status !== 0)
+		{
+			if (res.data.errors.username) {
+				error.username = res.data.errors.username;
+			}
+			if (res.data.errors.email) {
+				error.email = res.data.errors.email;
+			}
+			if (res.data.errors.lastName) {
+				error.lastname = res.data.errors.lastName;
+			}
+			if (res.data.errors.firstName) {
+				error.firstname = res.data.errors.firstName;
+			}
+			setErrors(error);
+		}
+		else {
+			setErrors({});
+			swal({
+				title: "Cool",
+				text: "Your Infos has been Updated Successfully",
+				icon: "success",
+				button: "close",
+			})
+		}
+	}
   return (
 		
 	<div className='h-auto lg:h-screen w-screen bg-zinc-100 px-[15%] py-[140px] overflow-y-auto'>

@@ -7,6 +7,7 @@ import {faPerson} from '@fortawesome/free-solid-svg-icons'
 import {faUsers} from '@fortawesome/free-solid-svg-icons'
 import {faPersonDress} from '@fortawesome/free-solid-svg-icons'
 
+
 const Hero = () => {
   return (
     <div className=' h-auto bg-zinc-100 flex flex-col px-[15%] pt-[140px] pb-20 '>

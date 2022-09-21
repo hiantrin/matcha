@@ -2,6 +2,8 @@ import {React, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import instance from './instances/helpaxios';
 import swal from 'sweetalert';
+// import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"
 
 
 const Signin = () => {
@@ -54,6 +56,15 @@ const Signin = () => {
 			setFormErrors(errors);
 		}
 		else {
+			// toast.success('signed in successfully!', {
+			// 	position: "top-right",
+			// 	autoClose: 2000,
+			// 	hideProgressBar: false,
+			// 	closeOnClick: true,
+			// 	pauseOnHover: true,
+			// 	draggable: true,
+
+			// 	});
 			localStorage.setItem('authToken', res.data.authToken);
 			if (res.data.dataProfileIsComplited === 0) {
 				navigate("/init");
@@ -80,6 +91,7 @@ const Signin = () => {
 	}
 
 	return (
+		<>
 		<div className='h-auto lg:h-screen w-screen bg-zinc-100  px-[15%] py-[140px] overflow-y-auto ' >
 			<div className='w-full h-full flex flex-col justify-center items-center lg:flex-row'>
 				<div className='sm:w-[80%] h-full lg:w-[50%] flex flex-col justify-center items-center lg:items-start order-last lg:order-first '>
@@ -101,6 +113,7 @@ const Signin = () => {
 						<h1 className='text-xs font-bold italic mb-2'>forget password?</h1>
 					</div>
 					<button className='w-[250px] sm:w-[350px] h-[30px] text-xs font-bold' onClick={handleclick}>Login in</button>
+					
 				</div>
 				<div className='w-[250px] h-[400px] sm:w-[500px] sm:h-[700px] lg:w-[50%] lg:h-full flex justify-center items-center Box relative mb-[100px] lg:mb-0'>
 					<div className='w-full h-full bg-indigo-600 opacity-50 absolute '></div>
@@ -111,7 +124,9 @@ const Signin = () => {
 					
 				</div>
 			</div>
+			{/* <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover /> */}
 		</div>
+		</>
 	)
 }
 

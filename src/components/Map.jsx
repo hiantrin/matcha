@@ -1,27 +1,17 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import { divIcon } from "leaflet";
 import { renderToStaticMarkup } from "react-dom/server";
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSelector } from 'react-redux';
-import { getUserData } from './redux/reducers/userSlice';
-import { useDispatch } from 'react-redux';
-import { addUserData } from './redux/reducers/userSlice';
 
 
-
-
-function MyMap({setGetLan, getLan, data}) {
-	const dispatch = useDispatch();
+function MyMap({setGetLan}) {
   useMapEvents({
     click: (e) => {
-      setGetLan([e.latlng.lat,e.latlng.lng])
-	  console.log(data);
-	  data.lat = e.latlng.lat;
-	  data.lng = e.latlng.lng;
-		// dispatch(addUserData(data));
+      setGetLan({lat : e.latlng.lat,
+        lng : e.latlng.lng})
     },
  
   })
@@ -30,10 +20,7 @@ function MyMap({setGetLan, getLan, data}) {
 
 
 
-const Map = () => {
-	const data = useSelector(getUserData);
-	const [getLan, setGetLan] = useState([data.lat, data.lng])
-
+const Map = ({getLan, setGetLan}) => {
 	const iconMarkup = renderToStaticMarkup(
     	<FontAwesomeIcon icon={faLocationDot} size="2x" className='text-red-600'/>
 	);
@@ -54,7 +41,7 @@ const Map = () => {
     />
     <Marker position={getLan} icon={customMarkerIcon} className="leaflet-marker-icon">
     </Marker>
-    <MyMap setGetLan={setGetLan} getLan={getLan} data={data}/>
+    <MyMap setGetLan={setGetLan}/>
   </MapContainer>
    
   )

@@ -17,7 +17,6 @@ const Confirm = () => {
 			if (/^[a-zA-Z0-9._-]+$/.test(slug)) {
 				(async () => {
 					const { data : { status } } = await verify(slug);
-					console.log(status);
 					if (status === 0) {
 						swal ({
 							title : 'YAAAP!',

@@ -1,4 +1,4 @@
-import {React} from 'react'
+ import {React} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faChevronDown} from '@fortawesome/free-solid-svg-icons';
 import {faCircleXmark} from '@fortawesome/free-solid-svg-icons'
@@ -125,11 +125,6 @@ const Registration = () => {
             })
             return false;
         }
-        // Filereader.readAsDataURL(File);
-        // Filereader.onload = (e) => {
-        //     setAll({...all, [name] : e.target.result})
-        //     setPhotos({...photos, [name] : File.name})
-        // }
         Filereader.onload = e => {
 			const img = new Image();
 			img.onload = () => {};
@@ -213,20 +208,11 @@ const Registration = () => {
 		else send_to_back(all);
     }
     
-    // console.log(all.Photo1);
     const send_to_back = async (form) => {
-        // console.log(form.Photos1);
-        // console.log(location);
-        // console.log(country);
         const cont = country;
-        // const token = localStorage.getItem('authToken');
         setTg(tg);
-        // console.log(all);
-        // console.log(location);
-
-
-        // console.log(token);
-        const res = await getInstance.post("/stepForm/stepFormValidator", {
+        const token = localStorage.getItem('authToken');
+        const res = await getInstance(token).post("/stepForm/stepFormValidator", {
             gender : form.gender,
             interests : form.interests,
             bio: form.biography,
@@ -241,15 +227,11 @@ const Registration = () => {
             longitude : location.longitude,
             country : cont,
         })
-        // console.log(res);
         if (res.data.status === 0)
         {
             navigate('/account');
         }
     
-        // console.log(res);
-        // const token = localStorage.getItem('authToken');
-        // console.log(token);
     }
 
 	const validate = (form) => {
