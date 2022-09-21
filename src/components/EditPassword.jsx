@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
 import {  useSelector } from 'react-redux';
+import instance from './instances/helpaxios';
 import {  getUserData } from './redux/reducers/userSlice';
 
 const EditPassword = () => {
 	const user = useSelector(getUserData);
 	const infos = [
-		{id: "currPass", name: "Current Password", text: "Please Enter Your Current Password"},
 		{id: "newPass", name: "New Password", text: "Please Enter The New Password"},
 		{id: "confPass", name: "Confirm Password" ,text: "Please Confirm Your New Password"}
 	]
 	const [all, setAll] = useState({
-		currPass: "",
 		newPass: "",
 		confPass: ""
 	})
@@ -18,8 +17,14 @@ const EditPassword = () => {
 	const testerror = (tg, e) => {
 		setAll({...all, [tg.id] : e.target.value});
 	}
-	const submit = () => {
-		console.log(user);
+	const submit = async () => {
+		console.log(user.username, all.newPass, all.confPass);
+		const res = await instance.post("resetPassword/resetPasswordValidation", {
+			userName: user.username,
+			newPassword: all.newPass,
+			confNewPassword: all.confPass,
+		})
+		console.log(res);
 	}
 
 	const map = 
