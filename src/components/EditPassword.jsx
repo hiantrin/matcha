@@ -6,8 +6,8 @@ import {  getUserData } from './redux/reducers/userSlice';
 const EditPassword = () => {
 	const user = useSelector(getUserData);
 	const infos = [
-		{id: "newPass", name: "New Password", text: "Please Enter The New Password"},
-		{id: "confPass", name: "Confirm Password" ,text: "Please Confirm Your New Password"}
+		{id: "newPass", name: "New Password", text: "Please Enter The New Password", error:""},
+		{id: "confPass", name: "Confirm Password" ,text: "Please Confirm Your New Password", error: ""}
 	]
 	const [all, setAll] = useState({
 		newPass: "",
@@ -18,13 +18,22 @@ const EditPassword = () => {
 		setAll({...all, [tg.id] : e.target.value});
 	}
 	const submit = async () => {
-		console.log(user.username, all.newPass, all.confPass);
+		const error = {};
 		const res = await instance.post("resetPassword/resetPasswordValidation", {
 			userName: user.username,
 			newPassword: all.newPass,
 			confNewPassword: all.confPass,
 		})
-		console.log(res);
+		console.log(res.data.errors);
+		if (res.data.status !== 0) {
+			console.log(res.data.errors.newPassword, res.data.errors.confPwdErr);
+			if (res.data.errors.newPassword) error.newPassword =  res.data.errors.newPassword;
+			if (res.data.errors.confPwdErr)	error.confPwdErr = res.data.errors.confPwdErr;
+			setErrors(error);
+		}
+		else {
+
+		}
 	}
 
 	const map = 
@@ -32,14 +41,16 @@ const EditPassword = () => {
 			<h1 className="text-2xl font-bold mb-3">Be in Match.</h1>
 			<p className='text-xs mb-6 max-w-[350px]'>You Are Never Too Old To Set Another Goal Or To Dream A New Dream.</p>
 			{infos.map((tg, id) => {
+				const err = () => {
+					return (id === 0) ? errors.newPassword : errors.confPwdErr
+				}
 				return (
 					<div key={id}>
-						<p   className='text-red-600 text-xs mb-4 ml-3 '>{errors.firstname}</p>
 						<p   className='text-sm font-bold'>{tg.text}</p>
 				 		<div  className='w-full max-w-[350px] h-[30px] rounded-xl bg-gray-200 flex justify-between items-center pl-3  left-shadow pr-3 '>
 				 			<input type="text" placeholder={tg.name} className='w-[250px] sm:w-[350px] bg-transparent outline-none  placeholder:text-[0.7rem] font-bold text-sm' onChange={(e) => testerror(tg, e)}></input>
 				 		</div>
-						 <p   className='text-red-600 text-xs mb-4 ml-3 '>{errors.firstname}</p>
+						 <p   className='text-red-600 text-xs mb-4 ml-3 '>{err}</p>
 					</div>
 				)})}
 			<button className='w-[350px] h-[35px] text-sm font-bold mt-10' onClick={submit}>Change Password</button>
