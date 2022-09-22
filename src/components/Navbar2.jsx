@@ -17,12 +17,14 @@ const Navbar2 = () => {
     const [icon, setIcon] = useState(false)
 	const showdrop = (e) =>{
         if (e.icon === faGear) setIcon(!icon)
-        
+        if(e.icon === faRightFromBracket) {
+            localStorage.removeItem('authToken');
+            navigate("/auth")
+        }
     }
-    const navigate =useNavigate();
+    const navigate = useNavigate();
     const redirectpath = (e) => {
-        if (e.name === "Edit Infos") navigate("/account")
-        if (e.name === "Edit Password") navigate("/account/password");
+        navigate(e.path)
     }
     
     const links = [
@@ -36,9 +38,9 @@ const Navbar2 = () => {
         {icon : faRightFromBracket  , path : ""},
     ]
     const params = [
-        {name: "Edit Infos", path : ""},
-        {name: "Edit Preferences", path : ""},
-        {name: "Edit Password", path : ""},
+        {name: "Edit Infos", path : "/account"},
+        {name: "Edit Preferences", path : "/account/preferences"},
+        {name: "Edit Password", path : "/account/password"},
         {name: "Edit Photos", path : ""},
     ]
 

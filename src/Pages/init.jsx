@@ -4,6 +4,7 @@ import Navbar2 from '../components/Navbar2'
 import Footer from '../components/Footer'
 
 const init = () => {
+	
   return (
     <>
       <div className=" h-auto md:h-screen flex flex-col justify-between bg-zinc-100">

@@ -6,6 +6,7 @@ import instance from './instances/helpaxios';
 
 const verify = async (slug) => {
 	const res = await instance.get(`emailverification/tokenverification/${slug}`);
+	console.log(res);
 	return res;
 }
 
@@ -14,7 +15,7 @@ const Confirm = () => {
 	const navigate = useNavigate();
 
 	useEffect ( () => {
-			if (/^[a-zA-Z0-9._-]+$/.test(slug)) {
+			if(slug && /^[a-zA-Z0-9._-]+$/.test(slug)) {
 				(async () => {
 					const { data : { status } } = await verify(slug);
 					if (status === 0) {
@@ -43,7 +44,7 @@ const Confirm = () => {
 				})
 			}
 			navigate('/auth');
-	}, [slug, navigate])
+	}, [])
 	return null;
 }
 

@@ -11,7 +11,7 @@ import { CheckAuth } from "./components/Auth";
 import getInstance from "./components/instances/help2";
 import { addUserData } from "./components/redux/reducers/userSlice";
 import { useDispatch } from 'react-redux';
-
+import EditPreferences from "./Pages/EditPreferences";
 
 
 
@@ -19,6 +19,8 @@ import {
   Routes,
   Route,
   useLocation,
+  Outlet,
+  Navigate
 } from "react-router-dom";
 import PublicRoutes from "./components/publicRoutes/PublicRoutes";
 import Error404 from "./Pages/404";
@@ -27,6 +29,7 @@ import EditPass from "./Pages/EditPass";
 
 function App() {
   const [auth, setAuth] = useState(null);
+  let success = true
   const [isloading, setIsloading] = useState(false);
   const location = useLocation();
   
@@ -61,16 +64,23 @@ function App() {
   },[location])
   if (isloading)
       return <Loading />;
+
+  const PrivateInit = () => {
+    return success  ? <Navigate to="/account" /> : <Outlet/>
+  }
   return (
 
 
     <Routes>
       <Route path='/' element={<Home />}></Route>
-      <Route path="/" element={<PrivateRoutes auth={auth}/>}>
+      <Route path="/" element={<PrivateInit/>}>
         <Route path='init' element={<Init />}/>
+      </Route>
+      <Route path="/" element={<PrivateRoutes auth={auth}/>}>
         <Route path='account' element={<Account />}/>
         <Route path='auth/confirm/:slug' element={<Confirm />}/>
         <Route path="account/password" element={<EditPass />}/>
+        <Route path="/account/preferences" element={<EditPreferences /> } />
       </Route>
       <Route path='/' element={<PublicRoutes auth={auth}/>}>
         <Route path='/auth' element={<Auth />}></Route>
