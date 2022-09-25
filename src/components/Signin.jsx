@@ -67,14 +67,11 @@ const Signin = () => {
 			// 	});
 			
 			localStorage.setItem('authToken', res.data.authToken);
-			console.log("complited======>", res.data.dataProfileIsComplited);
 			if (res.data.dataProfileIsComplited === 0) {
-				console.log("abdollah zaml");
 				navigate("/init");
 			}
 			else {
-				console.log("hada how l7wa");
-				// navigate("/account");
+				navigate("/account");
 			}
 		}
 	}

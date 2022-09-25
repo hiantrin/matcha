@@ -25,11 +25,14 @@ import {
 import PublicRoutes from "./components/publicRoutes/PublicRoutes";
 import Error404 from "./Pages/404";
 import EditPass from "./Pages/EditPass";
+import EditPhotos from "./Pages/EditPhotos";
+import Profile from "./Pages/Profile";
+import Search from "./Pages/Search";
 
 
 function App() {
   const [auth, setAuth] = useState(null);
-  let success = true
+  const [complited, setComplited] = useState(true);
   const [isloading, setIsloading] = useState(false);
   const location = useLocation();
   
@@ -41,6 +44,11 @@ function App() {
     return mp.join('-');
   }
 
+  
+
+  useEffect(() => {
+  setIsloading(true);
+
   const getdata = async () => {
     const token = localStorage.getItem('authToken');
 		const {data : {userInfos}} = await getInstance(token).get('/getInfos/infos');
@@ -48,12 +56,11 @@ function App() {
 		dispatch(addUserData(userInfos[0]));
 	}
 
-  useEffect(() => {
-  setIsloading(true);
   const check = async () => {
       const res = await CheckAuth();
-      setAuth(res ? 'success' : 'failed');
-      if (res) await getdata();
+      setAuth(res.status ? 'success' : 'failed');
+	  if (res.status) setComplited(res.complited);
+      if (res.status) await getdata();
       setTimeout(() => {
           setIsloading(false);
       }, 500)
@@ -61,12 +68,12 @@ function App() {
   }
   check();
    
-  },[location])
+  },[location, dispatch])
   if (isloading)
       return <Loading />;
 
   const PrivateInit = () => {
-    return success  ? <Navigate to="/account" /> : <Outlet/>
+    return complited  ? <Navigate to="/account" /> : <Outlet/>
   }
   return (
 
@@ -76,13 +83,16 @@ function App() {
       <Route path="/" element={<PrivateInit/>}>
         <Route path='init' element={<Init />}/>
       </Route>
-      <Route path="/" element={<PrivateRoutes auth={auth}/>}>
+      <Route path="/" element={<PrivateRoutes auth={auth} success={complited}/>}>
         <Route path='account' element={<Account />}/>
         <Route path='auth/confirm/:slug' element={<Confirm />}/>
         <Route path="account/password" element={<EditPass />}/>
         <Route path="/account/preferences" element={<EditPreferences /> } />
+        <Route path="/account/gallery" element={<EditPhotos />} />
+        <Route path="/Profile" element={<Profile />} />
+        <Route path="/Search" element={<Search />} />
       </Route>
-      <Route path='/' element={<PublicRoutes auth={auth}/>}>
+      <Route path='/' element={<PublicRoutes auth={auth} />}>
         <Route path='/auth' element={<Auth />}></Route>
         <Route path='/auth/register' element={<Register />}/>
       </Route>

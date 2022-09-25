@@ -143,10 +143,7 @@ const Registration = () => {
 		};
 		Filereader.readAsDataURL(File);
 	}
-    const handletags = async (e) => {
-        const {value} = e.target;
-        await setTags(value);
-    }
+   
 
     const Compare = (tag) => {
         const number = all.tags.length;
@@ -157,6 +154,11 @@ const Registration = () => {
         }
         return (true);
     } 
+
+    const handletags = async (e) => {
+        const {value} = e.target;
+        await setTags(value);
+    }
 
     const Pressenter =  (e) => {
         const namo = all.tags;
@@ -229,7 +231,7 @@ const Registration = () => {
         })
         if (res.data.status === 0)
         {
-            navigate('/account');
+            navigate('/auth');
         }
     
     }
@@ -300,13 +302,13 @@ const Registration = () => {
 				</div>
 				<p className='text-xs font-bold text-red-600 mb-3 ml-3'>{errors.biography}</p>
                 <p className='text-sm font-bold'>Date of birth.</p>
-                <div className='max-w-[350px] h-[30px] rounded-xl bg-gray-200 flex  pl-3  left-shadow '>
-                    <input type="date" name="birth"  className='w-[250px] sm:w-[350px] bg-transparent outline-none  text-sm pr-4 font-bold bg-white'  onChange={handleit}></input>
+                <div className='max-w-[350px] h-[30px] rounded-xl bg-gray-200 flex  pl-3 pr-4 left-shadow '>
+                    <input type="date" name="birth"  className='w-[250px] sm:w-[350px] bg-transparent outline-none  text-sm  font-bold  '  onChange={handleit}></input>
                 </div>
 				<p className='text-xs font-bold text-red-600 mb-3 ml-3'>{errors.birth}</p>
                 <p className='text-sm font-bold'>Tags.</p>
-                <div className='max-w-[350px] h-[30px] rounded-xl bg-gray-200 flex  pl-3  left-shadow '>
-                    <input type="text" name="tags" placeholder='Press Enter to Add tags' className='w-[250px] sm:w-[350px] bg-transparent outline-none placeholder:text-[0.7rem] text-sm pr-4 font-bold bg-white' value={tags} onChange={handletags} onKeyDown={Pressenter}></input>
+                <div className='max-w-[350px] h-[30px] rounded-xl bg-gray-200 flex  pl-3 pr-4 left-shadow '>
+                    <input type="text" name="tags" placeholder='Press Enter to Add tags' className='w-[250px] sm:w-[350px] bg-transparent outline-none placeholder:text-[0.7rem] text-sm pr-4 font-bold ' value={tags} onChange={handletags} onKeyDown={Pressenter}></input>
                 </div>
 				<p className='text-xs font-bold text-red-600 mb-3 ml-3'>{errors.tags}</p>
                 <div className='h-auto max-w-[350px]'>

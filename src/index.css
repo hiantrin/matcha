@@ -39,6 +39,7 @@
 .leaflet-container{
 	height: 80%;
 	width: 100%;
+	@apply shadow-2xl shadow-gray-600 rounded-xl
 }
 
 

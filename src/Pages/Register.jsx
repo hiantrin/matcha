@@ -7,7 +7,7 @@ import Signup from '../components/Signup'
 const Register = () => {
   return (
     <>
-        <Navbar />
+		<Navbar />
 		<Signup />
 		<Down  name="Sing Up" />
 		<Footer />

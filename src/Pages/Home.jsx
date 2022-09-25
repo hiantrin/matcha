@@ -16,7 +16,6 @@ const Home = () =>  {
 		check()
 	}, [])
 
-	console.log(auth);
 	return (
 		<>
 		<div className=" h-auto md:h-screen flex flex-col justify-between bg-zinc-100">

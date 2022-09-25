@@ -6,7 +6,6 @@ import instance from './instances/helpaxios';
 
 const verify = async (slug) => {
 	const res = await instance.get(`emailverification/tokenverification/${slug}`);
-	console.log(res);
 	return res;
 }
 

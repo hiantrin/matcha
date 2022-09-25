@@ -17,10 +17,11 @@ const Navbar2 = () => {
     const [icon, setIcon] = useState(false)
 	const showdrop = (e) =>{
         if (e.icon === faGear) setIcon(!icon)
-        if(e.icon === faRightFromBracket) {
+        else if(e.icon === faRightFromBracket) {
             localStorage.removeItem('authToken');
             navigate("/auth")
         }
+        else navigate(e.path)
     }
     const navigate = useNavigate();
     const redirectpath = (e) => {
@@ -29,8 +30,8 @@ const Navbar2 = () => {
     
     const links = [
         {icon : faTrashArrowUp  , path : ""},
-        {icon : faUser  , path : ""},
-        {icon : faEarthEurope  , path : ""},
+        {icon : faUser  , path : "/Profile"},
+        {icon : faEarthEurope  , path : "/Search"},
         {icon : faClockRotateLeft  , path : ""},
         {icon : faCommentDots  , path : ""},
         {icon : faBell  , path : ""},
@@ -41,7 +42,7 @@ const Navbar2 = () => {
         {name: "Edit Infos", path : "/account"},
         {name: "Edit Preferences", path : "/account/preferences"},
         {name: "Edit Password", path : "/account/password"},
-        {name: "Edit Photos", path : ""},
+        {name: "Edit Photos", path : "/account/gallery"},
     ]
 
     const map = 
@@ -65,7 +66,7 @@ const Navbar2 = () => {
             )})}
         </div>
   return (
-    <div className='w-screen h-[80px] z-20 fixed '>
+    <div className='w-screen h-[80px] z-10 fixed '>
     	<div className='w-full h-full bg-zinc-100 drop-shadow-lg flex justify-between items-center px-[15%]'>
        		<h1 className='text-black font-bold text-2xl sm:text-3xl md:text-3xl'><Link to="/">Matcha.</Link></h1>
             {map}

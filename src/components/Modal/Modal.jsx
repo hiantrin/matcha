@@ -50,10 +50,10 @@ export default function Modal() {
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
           >
                 <div ref={ModalRef} className="w-[30%] h-[50%] flex flex-col p-10 bg-white gap-10 rounded-xl">
-                    <Map getLan={getLan}  setGetLan={setGetLan}/>
+                    <Map getLan={getLan}  setGetLan={setGetLan} />
                     <div className="flex justify-between  w-full ">
-                        <button className="w-[40%] self-center" onClick={() => setShowModal(false) }>close</button>
-                        <button className="w-[40%] self-center" onClick={saveposition}>save</button>
+                        <button className="w-[40%] self-center shadow-xl shadow-gray-600" onClick={() => setShowModal(false) }>close</button>
+                        <button className="w-[40%] self-center shadow-xl shadow-gray-600" onClick={saveposition}>save</button>
                     </div>
                    
                 </div> 

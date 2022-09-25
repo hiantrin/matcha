@@ -90,8 +90,6 @@ const Personalinfos = () => {
 		const error = {};
 		success(lat, lng);
 		const token = localStorage.getItem('authToken');
-		console.log(token);
-		console.log(lat, lng)
 		const res = await getInstance(token).post("/editProfileInfo/infoValidator", {
 			...userInfo,
 			lat : lat,
