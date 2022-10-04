@@ -2,9 +2,13 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import getInstance from './instances/help2'
 import ReactStars from 'react-stars'
+import { useSelector } from 'react-redux'
+import { getUserData } from './redux/reducers/userSlice'
+import getDistance from 'geolib/es/getDistance';
 
 const Filter = () => {
 	const token = localStorage.getItem('authToken');
+	const pro = useSelector(getUserData);
 
 	const [location, setLocation] = useState({
 		min : 0,
@@ -20,6 +24,7 @@ const Filter = () => {
 		maxValue : 55,
 		step : 1,
 	})
+	console.log(Age)
 	const [tags, setTags] = useState({
 		min : 1,
 		max : 5,
@@ -32,7 +37,7 @@ const Filter = () => {
 		name : ["Fame Rating.", "Age.", "Location.", "Common Tags."]
 	})
 	const [allProfiles, setAllProfiles] = useState([]);
-	const [star, setStar] = useState(0.5);
+	const [star, setStar] = useState(2.6);
 
 	useEffect(() => {
 		const getProfiles = async () => {
@@ -124,6 +129,13 @@ const Filter = () => {
 		setStar(value);
 	}
 
+	const getdis = (user) => {
+		let dis = getDistance(
+			{ latitude: pro.lat, longitude: pro.lng },
+			{ latitude: user.latitude, longitude: user.longitude }
+		)
+		return dis / 1000;
+	}
 	const mapfour = 
 	<div className='flex justify-center items-center space-x-10 mt-20'>
 		{four.set.map((some, index) => {
@@ -134,19 +146,21 @@ const Filter = () => {
 				</div>
 		)})}
 	</div>
-
+	
 	const mapUsers = 
 		<div className='flex flex-wrap  gap-5 justify-center'>
-			{allProfiles?.map((user, index) => (
-			
-					<div className='w-[200px] h-[300px] border  rounded-3xl flex flex-col items-center'>
+			{allProfiles?.filter(item => item.public_famerating >= star && (calculAge(item.birthdate) >= Age.minValue && calculAge(item.birthdate) <= Age.maxValue) ).sort((a, b) => b.public_famerating - a.public_famerating).map((user, index) => (
+					<div className='w-[200px] h-[300px] border  rounded-3xl flex flex-col items-center gap-3 cursor-pointer' key={index} >
 						<img className='w-full h-[60%] rounded-t-3xl' src={user?.profile_img} alt='al'></img>
 						<h1 className='text-xs font-mono font-bold mt-4'>{user?.first_name} {user?.last_name}, {calculAge(user?.birthdate)}</h1>
+						<div className='flex'>
+							<ReactStars  count={5} value={user.public_famerating} size={18} color2={'#FFA500'} edit={false}/>
+							<h1 className='text-[0.5rem] font-bold ml-1'>({user.public_famerating})</h1>
+						</div>
+						<h1 className='text-xs font-bold'>{getdis(user)} (km)</h1>
 					</div>
 			))}
 		</div>
-
-	// console.log(allProfiles)
 
 
 
