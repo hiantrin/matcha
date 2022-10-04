@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { useEffect } from 'react'
 import getInstance from './instances/help2'
+import ReactStars from 'react-stars'
 
 const Filter = () => {
 	const token = localStorage.getItem('authToken');
-    const [array, setArray] = useState({
-		color : [false, false, false, false, false]
-	})
+
 	const [location, setLocation] = useState({
 		min : 0,
 		max : 100,
@@ -35,6 +32,7 @@ const Filter = () => {
 		name : ["Fame Rating.", "Age.", "Location.", "Common Tags."]
 	})
 	const [allProfiles, setAllProfiles] = useState([]);
+	const [star, setStar] = useState(0.5);
 
 	useEffect(() => {
 		const getProfiles = async () => {
@@ -44,26 +42,7 @@ const Filter = () => {
 		getProfiles();
 
 	 	}, [token])
-
-	const changeColor = (index) => {
-		const arr = array.color;
-		let type = null;
-		(arr[index] === true) ? type = true : type = false;
-		if (type === false)
-		{
-			for (let i = 0; i <= index ; i++) {
-				arr[i] = true;
-			}
-		}
-		else {
-			for (let i = 4; i >= index ; i--) {
-				arr[i] = false;
-			}
-		}
 		
-		setArray({...array, color : arr})
-	}
-
 	const handlerange = (e) => {
 		const priceGap = 1;
 		let Price = parseInt(e.target.value);
@@ -141,13 +120,9 @@ const Filter = () => {
 		}
 	}
 
-    const mapStar =
-    <div>
-        {array.color.map((ar, index) => {
-        	return(
-					<FontAwesomeIcon key={index} icon={faStar} size="1x" className={ar === false ? 'text-gray-300 hover:text-yellow-400' : 'hover:text-gray-300 text-yellow-400'} onClick={() => changeColor(index)}/>
-        )})}
-    </div>
+	const changeStar = (value) => {
+		setStar(value);
+	}
 
 	const mapfour = 
 	<div className='flex justify-center items-center space-x-10 mt-20'>
@@ -161,8 +136,8 @@ const Filter = () => {
 	</div>
 
 	const mapUsers = 
-		<div className='flex flex-wrap'>
-			{allProfiles[0]?.map((user, index) => (
+		<div className='flex flex-wrap  gap-5 justify-center'>
+			{allProfiles?.map((user, index) => (
 			
 					<div className='w-[200px] h-[300px] border  rounded-3xl flex flex-col items-center'>
 						<img className='w-full h-[60%] rounded-t-3xl' src={user?.profile_img} alt='al'></img>
@@ -171,7 +146,7 @@ const Filter = () => {
 			))}
 		</div>
 
-	// console.log(allProfiles[0])
+	// console.log(allProfiles)
 
 
 
@@ -181,7 +156,13 @@ const Filter = () => {
             <div className='flex justify-between items-center'>
                 <div className='flex-col spacey-4'>
                     <h1 className="text-sm font-bold font-mono">Frame Rating.</h1>
-                    {mapStar}
+					<ReactStars  
+					count={5}
+					value={star}
+					size={25}
+					color2={'#ffd700'}
+					onChange={changeStar}
+					/>
                 </div>
 				<div className='flex-col space-y-4  w-40'>
                     <h1 className="text-sm font-bold font-mono">Age.</h1>
@@ -223,6 +204,7 @@ const Filter = () => {
 			{mapfour}
         </div>
 		<button className='w-[150px] h-[25px]' onClick={filterit()}>filter</button>
+		{mapUsers}
     </div>  
   )
 }
