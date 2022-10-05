@@ -1,19 +1,17 @@
 import React, { useEffect } from 'react'
-import getInstance from './instances/help2'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
-import { useSelector } from 'react-redux'
-import { getUserData } from './redux/reducers/userSlice'
 import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import { divIcon } from "leaflet";
 import { renderToStaticMarkup } from "react-dom/server";
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
+import { faBan } from '@fortawesome/free-solid-svg-icons'
+import { faFlag } from '@fortawesome/free-solid-svg-icons'
 
-const Pro = () => {
-    const user = useSelector(getUserData)
-    const token = localStorage.getItem('authToken')
+const Pro = ({user, imgs, userData, type}) => {
     const [photos, setPhotos] = useState([]);
     const [online, setOnline] = useState("Offline");
     const number = ["", "", "", "", ""]
@@ -24,14 +22,6 @@ const Pro = () => {
     const [position, setPosition] = useState([5,5]);
 
     useEffect(() => {
-        const dataimage = async () => {
-			const res = await getInstance(token).get("/getPictures/pics");
-			return res.data.userPics[0];
-		}
-        const getpref = async () => {
-            const res = await getInstance(token).get("/getPreferences/prefs");
-            return (res.data);
-        }
         const getCountry = async () => {
             const latitude = user.lat;
             const longitude = user.lng;
@@ -55,9 +45,7 @@ const Pro = () => {
                 var date = (now - bday_in_milliseconds) / 31556952000;
                 const dat = date.toString();
                 setAge(dat.substr(0, 2));
-                const imgs = await dataimage();
                 setPhotos((Object.values(imgs)));
-                const userData = await getpref();
                 setPrefs(userData.userPrefs);
                 setTags(userData.userTags);
                 setPosition([user.lat, user.lng])
@@ -68,7 +56,7 @@ const Pro = () => {
         }
         getimgs();
         
-    }, [user, token])
+    }, [user])
 
 
     const iconMarkup = renderToStaticMarkup(
@@ -118,6 +106,11 @@ const Pro = () => {
                 <h1 className='text-md text-black' >{online}</h1>
             </div>
             {map}
+            <div className={!type ? 'flex gap-20 mb-5' : "hidden"}>
+                <FontAwesomeIcon icon={faHeart} size="2x" className='text-gray-400 cursor-pointer'/>
+                <FontAwesomeIcon icon={faBan} size="2x" className='text-gray-400 cursor-pointer'/>
+                <FontAwesomeIcon icon={faFlag} size="2x" className='text-gray-400 cursor-pointer'/>
+            </div>
             <h1 className='text-3xl text-black italic mb-32 '>{user.username}</h1>
             <div className='w-full  rounded-2xl bg-indigo-300 pt-10 pb-16 space-y-5 pl-6 ' >
                 <h1 className='text-2xl italic font-bold underline'> Information : </h1>

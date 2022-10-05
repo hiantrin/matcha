@@ -110,7 +110,7 @@ input[type=range]::-webkit-slider-thumb {
   }
   .sliderkm .progress{
 	height: 100%;
-	left: 10%;
+	left:5%;
 	right: 10%;
 	position: absolute;
 	border-radius: 5px;

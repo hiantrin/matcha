@@ -28,6 +28,7 @@ import EditPass from "./Pages/EditPass";
 import EditPhotos from "./Pages/EditPhotos";
 import Profile from "./Pages/Profile";
 import Search from "./Pages/Search";
+import UserProfile from "./Pages/UserProfile";
 
 
 function App() {
@@ -76,8 +77,6 @@ function App() {
     return complited  ? <Navigate to="/account" /> : <Outlet/>
   }
   return (
-
-
     <Routes>
       <Route path='/' element={<Home />}></Route>
       <Route path="/" element={<PrivateInit/>}>
@@ -86,6 +85,7 @@ function App() {
       <Route path="/" element={<PrivateRoutes auth={auth} success={complited}/>}>
         <Route path='account' element={<Account />}/>
         <Route path='auth/confirm/:slug' element={<Confirm />}/>
+        <Route path='user/:slug' element={<UserProfile />}/>
         <Route path="account/password" element={<EditPass />}/>
         <Route path="/account/preferences" element={<EditPreferences /> } />
         <Route path="/account/gallery" element={<EditPhotos />} />
