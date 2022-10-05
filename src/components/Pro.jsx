@@ -10,6 +10,7 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faBan } from '@fortawesome/free-solid-svg-icons'
 import { faFlag } from '@fortawesome/free-solid-svg-icons'
+import ReactStars from 'react-stars'
 
 const Pro = ({user, imgs, userData, type}) => {
     const [photos, setPhotos] = useState([]);
@@ -105,7 +106,8 @@ const Pro = ({user, imgs, userData, type}) => {
                 <div className={online === "Offline" ? 'w-3 h-3 rounded-full bg-gray-500 mr-1 ' : 'w-3 h-3 rounded-full bg-green-500 mr-1 '}></div>
                 <h1 className='text-md text-black' >{online}</h1>
             </div>
-            {map}
+            {/* {map} */}
+            <ReactStars  count={5} value={user.fameRating} size={25} color2={'#FFA500'} edit={false} className="mb-5"/>
             <div className={!type ? 'flex gap-20 mb-5' : "hidden"}>
                 <FontAwesomeIcon icon={faHeart} size="2x" className='text-gray-400 cursor-pointer'/>
                 <FontAwesomeIcon icon={faBan} size="2x" className='text-gray-400 cursor-pointer'/>

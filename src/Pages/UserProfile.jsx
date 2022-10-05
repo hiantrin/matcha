@@ -37,7 +37,8 @@ const UserProfile = () => {
 					lastName: myuser.data.allUserInfos.lastName,
 					lat: myuser.data.allUserInfos.lat,
 					lng: myuser.data.allUserInfos.lng,
-					username: myuser.data.allUserInfos.userName
+					username: myuser.data.allUserInfos.userName,
+					fameRating: myuser.data.allUserInfos.fameRating
 				}
 				setMatch(obj);
 				const imgs = {
