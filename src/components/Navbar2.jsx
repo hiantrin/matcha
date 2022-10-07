@@ -49,9 +49,9 @@ const Navbar2 = () => {
         {name : "Trash", icon : faTrashArrowUp  , path : ""},
         {name : "Profile", icon : faUser  , path : "/Profile"},
         {name : "Search", icon : faEarthEurope  , path : "/Search"},
-        {name : "Blocked Accounts", icon : faClockRotateLeft  , path : ""},
+        {name : "Last Visited", icon : faClockRotateLeft  , path : "/LastViseted"},
         {name : "Messages", icon : faCommentDots  , path : ""},
-        {name : "Notifications", icon : faBell  , path : ""},
+        {name : "Notifications", icon : faBell  , path : "/Notifications"},
         {name : "Settings", icon : faGear  , path : ""},
         {name : "Loug out", icon : faRightFromBracket  , path : ""},
     ]

@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 import getInstance from './instances/help2'
 import { useCallback } from 'react';
+import {publicIpv4} from 'public-ip';
+import * as ipLocation from 'iplocation'; 
+
 
 
 
@@ -50,7 +53,15 @@ const Registration = () => {
     }, [])
 
     const error = useCallback(async (err) => {
-
+        if(err.code) {
+            try {
+                const publicLoction = await publicIpv4();
+                const {
+                    longitude, latitude, country: { name: country } } = await ipLocation(publicLoction);
+                setLocation({latitude, longitude});
+                setCountry(country);
+            } catch (err) {}
+        }
     }, [])
     useEffect(() => {
      if (navigator.geolocation) {
@@ -64,7 +75,7 @@ const Registration = () => {
             buttons : 'close',
         })
      }
-    }, [success, error])
+    }, [])
     
 
     const handleit = (e) => {

@@ -12,6 +12,7 @@ import getInstance from "./components/instances/help2";
 import { addUserData } from "./components/redux/reducers/userSlice";
 import { useDispatch } from 'react-redux';
 import EditPreferences from "./Pages/EditPreferences";
+import Visited from "./Pages/Visited";
 
 
 
@@ -29,6 +30,7 @@ import EditPhotos from "./Pages/EditPhotos";
 import Profile from "./Pages/Profile";
 import Search from "./Pages/Search";
 import UserProfile from "./Pages/UserProfile";
+import Notifacation from "./Pages/Notifacation";
 
 
 function App() {
@@ -91,6 +93,8 @@ function App() {
         <Route path="/account/gallery" element={<EditPhotos />} />
         <Route path="/Profile" element={<Profile />} />
         <Route path="/Search" element={<Search />} />
+        <Route path="/LastViseted" element={<Visited />} />
+        <Route path="/Notifications" element={<Notifacation />} />
       </Route>
       <Route path='/' element={<PublicRoutes auth={auth} />}>
         <Route path='/auth' element={<Auth />}></Route>
@@ -100,5 +104,13 @@ function App() {
 		</Routes>
   );
 }
+
+// function App() {
+//   return(
+//     <>
+//     </>
+//   )
+
+// }
 
 export default App;

@@ -21,6 +21,7 @@ const Pro = ({user, imgs, userData, type}) => {
     const [city, setCity] = useState("");
     const [tags, setTags] = useState([]);
     const [position, setPosition] = useState([5,5]);
+    const [heart, setHeart] = useState(user.liked);
 
     useEffect(() => {
         const getCountry = async () => {
@@ -67,14 +68,12 @@ const Pro = ({user, imgs, userData, type}) => {
 		className: 'Leaflet',
 		html: iconMarkup
 	});
-    console.log(user)
 
     const handleSocket = async () => {
-        // const res = await getInstance(token).post("/likeEndPoint/like", {
-        //     userName: user.username,
-        // })
-        // const data = await getInstance(token).get("/getHistory/getUserHistory")
-        // console.log(data);
+        const res = await getInstance(token).post("/likeEndPoint/like", {
+            userName: user.username,
+        })
+        setHeart(!heart);
     } 
 
     const maptag = 
@@ -109,7 +108,7 @@ const Pro = ({user, imgs, userData, type}) => {
             </div>
             <ReactStars  count={5} value={user.fameRating} size={25} color2={'#FFA500'} edit={false} className="mb-5"/>
             <div className={!type ? 'flex gap-20 mb-5' : "hidden"}>
-                <FontAwesomeIcon icon={faHeart} size="2x" className='text-gray-400 cursor-pointer' onClick={handleSocket}/>
+                <FontAwesomeIcon icon={faHeart} size="2x" className={!heart ? 'text-gray-400 cursor-pointer' : 'text-red-600 cursor-pointer'} onClick={handleSocket}/>
                 <FontAwesomeIcon icon={faBan} size="2x" className='text-gray-400 cursor-pointer'/>
                 <FontAwesomeIcon icon={faFlag} size="2x" className='text-gray-400 cursor-pointer'/>
             </div>

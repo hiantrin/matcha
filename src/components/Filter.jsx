@@ -172,8 +172,6 @@ const Filter = () => {
 					</div>
 			))}
 		</div>
-		console.log(allProfiles[0])
-
   return (
     <div  className='mt-[150px] px-[15%] flex flex-col space-y-10 justify-center items-center'>
         <div className='w-full bg-white rounded-2xl flex flex-col justify-between items-center py-[20px] px-[40px]'>

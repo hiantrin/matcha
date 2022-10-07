@@ -33,7 +33,7 @@ const Map = ({getLan, setGetLan}) => {
       
        <MapContainer center={getLan} zoom={13} scrollWheelZoom={true} eventHandlers={{
               click:(event)=>{
-              console.log(event.latlng.lat());
+              event.latlng.lat();
                 }}}>
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

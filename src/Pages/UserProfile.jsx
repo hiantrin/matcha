@@ -38,7 +38,8 @@ const UserProfile = () => {
 					lat: myuser.data.allUserInfos.lat,
 					lng: myuser.data.allUserInfos.lng,
 					username: myuser.data.allUserInfos.userName,
-					fameRating: myuser.data.allUserInfos.fameRating
+					fameRating: myuser.data.allUserInfos.fameRating,
+					liked: (myuser.data.allUserInfos.liked === 0 ? false : true),
 				}
 				setMatch(obj);
 				const imgs = {
@@ -57,9 +58,9 @@ const UserProfile = () => {
 					userTags : myuser.data.allUserInfos.tags
 				}
 				setData(userPrefs);
-				console.log(myuser);
 				setIsActive(true)
 			}
+			console.log(myuser.data);
 		}
 		if(user.username === slug) navigate("/Profile")
 		else getalldata();

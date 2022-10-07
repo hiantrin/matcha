@@ -33,7 +33,6 @@ const Profile = () => {
 		}
 		getalldata();
 	}, [])
-	console.log(user);
 	return (
     	<div className=" h-auto md:h-screen  justify-between bg-zinc-100">
         	<div className='w-screen bg-zinc-100 overflow-y-auto'>

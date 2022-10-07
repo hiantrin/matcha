@@ -6,8 +6,6 @@ import { Provider } from 'react-redux';
 import { store } from './components/redux/store';
 import {
     BrowserRouter,
-    // Routes,
-    // Route,
   } from "react-router-dom";
 import React from 'react';
 
