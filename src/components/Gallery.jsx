@@ -136,10 +136,10 @@ const Gallery = () => {
 
 	const map =
 
-		<div className='w-full pr-[20px] grid grid-cols-2 justify-between items-center '>
+		<div className='w-full xs:pr-[20px] flex flex-col xs:grid xs:grid-cols-2 justify-between items-center '>
 		{photos.imgs.map((photo, i) => {
 			return (
-				<div className='mb-10 flex flex-col' key={i}>
+				<div className='mb-10 flex flex-col self-center' key={i}>
 					<div className='w-[140px] h-[140px] border-dashed border-2 rounded border-indigo-600 shadow-xl bg-white flex justify-center items-center cursor-pointer transition 
 					ease-in-out delay-150 hover:-translate-y-1 hover:scale-110  duration-300 mb-5 p-1'  >
 						{array[i] === true ? <img src={photo} className="w-full h-full" alt="al" onClick={() => showimage(photo)}></img> :
@@ -164,7 +164,7 @@ const Gallery = () => {
 						<ModalImage visible={visible} setVisible={setVisible} imag={gal}/>
 						<button className='w-[60%] h-[40px]' onClick={saveChanges}>Save changes</button>
                     </div>
-					<div className='w-[250px] h-[400px] sm:w-[500px] sm:h-[700px] lg:w-[50%] lg:h-full flex justify-center items-center Box2 relative mb-[100px] lg:mb-0'>
+					<div className='w-[250px] h-[400px] sm:w-[500px] sm:h-[700px] lg:w-[50%] lg:h-full flex justify-center items-center Box2 relative mb-[100px] lg:mb-0 self-center'>
 						<div className='w-full h-full bg-indigo-600 opacity-50 absolute '></div>
 						<div className='z-10 max-w-[200px] sm:max-w-[250px] text-center'>
 							<h1 className=' text-white font-bold mb-8'> Shop With Confidence </h1>

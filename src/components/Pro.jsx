@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import { divIcon } from "leaflet";
 import { renderToStaticMarkup } from "react-dom/server";
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faSignLanguage } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { faBan } from '@fortawesome/free-solid-svg-icons'
 import { faFlag } from '@fortawesome/free-solid-svg-icons'
 import ReactStars from 'react-stars'
+import getInstance from './instances/help2';
 
 const Pro = ({user, imgs, userData, type}) => {
+    const token = localStorage.getItem('authToken');
     const [photos, setPhotos] = useState([]);
     const [online, setOnline] = useState("Offline");
-    const number = ["", "", "", "", ""]
     const [age, setAge] = useState(0);
     const [prefs, setPrefs] = useState([])
     const [city, setCity] = useState("");
@@ -67,14 +67,15 @@ const Pro = ({user, imgs, userData, type}) => {
 		className: 'Leaflet',
 		html: iconMarkup
 	});
+    console.log(user)
 
-    const map = 
-        <div className='flex space-x-2 text-yellow-400 mb-7'>
-            {number.map((num, id) => {
-                return (
-                    <FontAwesomeIcon icon={faStar} name={num} size="1x" key={id}/>
-                )})}
-        </div>
+    const handleSocket = async () => {
+        // const res = await getInstance(token).post("/likeEndPoint/like", {
+        //     userName: user.username,
+        // })
+        // const data = await getInstance(token).get("/getHistory/getUserHistory")
+        // console.log(data);
+    } 
 
     const maptag = 
     <div className='flex flex-col space-y-4 '>
@@ -106,10 +107,9 @@ const Pro = ({user, imgs, userData, type}) => {
                 <div className={online === "Offline" ? 'w-3 h-3 rounded-full bg-gray-500 mr-1 ' : 'w-3 h-3 rounded-full bg-green-500 mr-1 '}></div>
                 <h1 className='text-md text-black' >{online}</h1>
             </div>
-            {/* {map} */}
             <ReactStars  count={5} value={user.fameRating} size={25} color2={'#FFA500'} edit={false} className="mb-5"/>
             <div className={!type ? 'flex gap-20 mb-5' : "hidden"}>
-                <FontAwesomeIcon icon={faHeart} size="2x" className='text-gray-400 cursor-pointer'/>
+                <FontAwesomeIcon icon={faHeart} size="2x" className='text-gray-400 cursor-pointer' onClick={handleSocket}/>
                 <FontAwesomeIcon icon={faBan} size="2x" className='text-gray-400 cursor-pointer'/>
                 <FontAwesomeIcon icon={faFlag} size="2x" className='text-gray-400 cursor-pointer'/>
             </div>

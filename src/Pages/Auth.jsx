@@ -9,15 +9,10 @@ const Auth = () => {
 
   return (
 	<>
-		{/* <div className=" h-auto md:h-screen flex flex-col justify-between bg-zinc-100">
-			<div className=' w-screen bg-zinc-100 overflow-y-auto'> */}
-				<Navbar />
-				<Signin />
-				<Down  name="Sign in"/>
-				<Footer />
-			{/* </div>
-			<Footer />
-		</div> */}
+		<Navbar />
+		<Signin />
+		<Down  name="Sign in"/>
+		<Footer />
 	</>
   )
 }

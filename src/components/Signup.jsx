@@ -136,7 +136,7 @@ const Signup = () => {
                     <p className='text-red-600 text-xs mb-4 ml-3 '>{formErrors.email}</p>
                     <h1 className='text-xs font-bold mb-1'>Password.</h1>
 					<div className={Object.keys(formErrors).lenght === 0 ? 'max-w-[350px] h-[30px] rounded-xl bg-gray-200 flex justify-center pl-3 mb-6 left-shadow' : 'max-w-[350px] h-[30px] rounded-xl bg-gray-200 flex justify-center pl-3 left-shadow mb-0'}>
-						<input type="text" name="password" placeholder='at least 8 characters' className='w-[250px] sm:w-[350px] bg-transparent outline-none  placeholder:text-[0.7rem] font-bold' value={formValues.password} onChange={handlechange}></input>
+						<input type="password" name="password" placeholder='at least 8 characters' className='w-[250px] sm:w-[350px] bg-transparent outline-none  placeholder:text-[0.7rem] font-bold' value={formValues.password} onChange={handlechange}></input>
 					</div>
                     <p className='text-red-600 text-xs mb-4 ml-3 '>{formErrors.password}</p>
 					<button className='w-[250px] sm:w-[350px] h-[30px] text-xs font-bold' onClick={handleclick}>Create Account</button>

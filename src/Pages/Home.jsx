@@ -11,7 +11,7 @@ const Home = () =>  {
 	useEffect(() => {
 		const check = async () => {
 			const res = await CheckAuth();
-			setAuth(res);
+			setAuth(res.status);
 		}
 		check()
 	}, [])

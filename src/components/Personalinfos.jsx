@@ -9,7 +9,6 @@ import swal from 'sweetalert';
 const Personalinfos = () => {
 	const userInfos = useSelector(getUserData);
 	
-	
 	const [userInfo, setUserInfo] = useState({
 		username : userInfos.username,
 		firstName : userInfos.firstName,
@@ -125,7 +124,7 @@ const Personalinfos = () => {
   return (
 		
 	<div className='h-auto lg:h-screen w-screen bg-zinc-100 px-[15%] py-[140px] overflow-y-auto'>
-		<div className="h-full w-full flex flex-col lg:flex-row">
+		<div className="h-full w-full flex flex-col lg:flex-row ">
 			<div className='sm:w-[80%] h-full lg:w-[50%] flex flex-col justify-center items-center lg:items-start order-last lg:order-first '>
 				<h1 className="text-2xl font-bold mb-3">Be in Match.</h1>
 				<p className='text-xs mb-6 max-w-[350px]'>You Are Never Too Old To Set Another Goal Or To Dream A New Dream.</p>
@@ -160,9 +159,9 @@ const Personalinfos = () => {
 				</div>
 				<p className='text-xs font-bold text-red-600 mb-3 ml-3'>{errors.birthDay}</p>
 				<Modal />
-				<button className='w-[350px] h-[35px] text-sm font-bold' onClick={redirect}>Save Changes</button>
+				<button className='w-[80%] xs:w-[350px] h-[35px] text-sm font-bold' onClick={redirect}>Save Changes</button>
 			</div>
-			<div className='w-[250px] h-[400px] sm:w-[500px] sm:h-[700px] lg:w-[50%] lg:h-full flex justify-center items-center Box2 relative mb-[100px] lg:mb-0'>
+			<div className='w-[250px] h-[400px] sm:w-[500px] sm:h-[700px] lg:w-[50%] lg:h-full flex justify-center items-center Box2 relative mb-[100px] lg:mb-0 self-center  '>
 				<div className='w-full h-full bg-indigo-600 opacity-50 absolute '></div>
 				<div className='z-10 max-w-[200px] sm:max-w-[250px] text-center'>
 					<h1 className=' text-white font-bold mb-8'> Shop With Confidence </h1>

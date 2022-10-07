@@ -107,7 +107,7 @@ const Signin = () => {
 					<p className='text-red-600 ml-3 text-[0.7rem] font-bold '>{formErrors.username}</p>
 					<h1 className='text-sm font-bold mb-1 mt-6'>Password.</h1>
 					<div className='max-w-[350px] h-[30px] rounded-xl bg-gray-200 flex justify-center pl-3  left-shadow'>
-						<input type="text" name="password" placeholder='at least 8 characters' className='w-[250px] sm:w-[350px] bg-transparent outline-none  placeholder:text-[0.7rem] font-bold' value={formValues.password} onChange={handlechange}></input>
+						<input type="password" name="password" placeholder='at least 8 characters' className='w-[250px] sm:w-[350px] bg-transparent outline-none  placeholder:text-[0.7rem] font-bold' value={formValues.password} onChange={handlechange}></input>
 					</div>
 					<p className='text-red-600 ml-3 text-[0.7rem] font-bold'>{formErrors.password}</p>
 					<div className='w-[250px] sm:w-[350px]  grid justify-items-end mt-6'>

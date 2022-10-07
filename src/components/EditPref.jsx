@@ -136,10 +136,10 @@ const EditPref = () => {
 					)})}
 			</div>
 		const maptag =
-		<div className='w-[350px] h-auto flex flex-wrap max-w-[350px]' >
+		<div className='w-full  h-auto flex flex-wrap max-w-[350px]' >
 			{allTags.map((tg, i) => {
 				return (
-					<div className='w-auto py-2 px-2 bg-indigo-600 text-xs font-bold mr-2 mb-2 rounded-xl flex justify-center items-center' key={i} >
+					<div className='w-auto py-2 px-2 bg-indigo-600 text-xs font-bold mr-2 mb-2 rounded-xl flex  justify-center items-center' key={i} >
 						<h1 className='mr-1'>{tg}</h1>
 						<FontAwesomeIcon icon={faCircleXmark}  size='1x' className='cursor-pointer' name={tg} onClick={() => deleteitem(tg)}/>
 					</div>
@@ -170,16 +170,16 @@ const EditPref = () => {
                 		</div>
 						<p className='text-xs font-bold text-red-600 mb-3 ml-3'>{errors.Interests}</p>
 						<p className='text-sm font-bold'>Your Tags.</p>
-                		<div className='max-w-[350px] h-[30px] rounded-xl bg-gray-200 flex  pl-3 pr-4 left-shadow '>
+                		<div className='w-full max-w-[350px] h-[30px] rounded-xl bg-gray-200 flex  pl-3 pr-4 left-shadow '>
                     		<input type="text" name="tags" placeholder='Press Enter to Add tags' className='w-[250px] sm:w-[350px] bg-transparent outline-none placeholder:text-[0.7rem] text-sm pr-4 font-bold ' value={tags} onChange={handletags} onKeyDown={Pressenter}></input>
                 		</div>
 						<p className='text-xs font-bold text-red-600 mb-3 ml-3'>{errors.tags}</p>
-                		<div className='h-auto max-w-[350px]'>
+                		<div className='w-full h-auto max-w-[350px]'>
                     		{maptag}
                 		</div>
-						<button className='w-[350px] h-[35px] text-sm font-bold mt-6' onClick={redirect}>Save Changes</button>
+						<button className='w-[80%] xs:w-[350px] h-[35px] text-sm font-bold mt-6' onClick={redirect}>Save Changes</button>
 					</div>
-					<div className='w-[250px] h-[400px] sm:w-[500px] sm:h-[700px] lg:w-[50%] lg:h-full flex justify-center items-center Box2 relative mb-[100px] lg:mb-0'>
+					<div className='w-[250px] h-[400px] sm:w-[500px] sm:h-[700px] lg:w-[50%] lg:h-full flex justify-center items-center Box2 relative mb-[100px] lg:mb-0 self-center'>
 						<div className='w-full h-full bg-indigo-600 opacity-50 absolute '></div>
 						<div className='z-10 max-w-[200px] sm:max-w-[250px] text-center'>
 							<h1 className=' text-white font-bold mb-8'> Shop With Confidence </h1>

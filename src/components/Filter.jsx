@@ -43,20 +43,6 @@ const Filter = () => {
 	const [sort, setSort] = useState("")
 	const [profiles, setProfiles] = useState([]);
 
-	useEffect(() => {
-		const getProfiles = async () => {
-			const response = await getInstance(token).get('http://localhost:5000/filter/sex_prefs');
-			const FilterData = response.data.filtredUsers?.map(item => {
-				item.birthdate = calculAge(item?.birthdate)
-				item.location = getdis(item)
-				return item
-			})
-			setAllProfiles(FilterData);
-			setProfiles(FilterData);
-		}
-		getProfiles();
-
-	 	}, [token])
 	
 	const handlerange = (e) => {
 		const priceGap = 1;
@@ -147,7 +133,20 @@ const Filter = () => {
 			return dis / 1000;
 		}
 	}
+	useEffect(() => {
+		const getProfiles = async () => {
+			const response = await getInstance(token).get('/filter/sex_prefs');
+			const FilterData = response.data.filtredUsers?.map(item => {
+				item.birthdate = calculAge(item?.birthdate)
+				item.location = getdis(item)
+				return item
+			})
+			setAllProfiles(FilterData);
+			setProfiles(FilterData);
+		}
+		getProfiles();
 
+	 	}, [token])
 	const mapfour = 
 	<div className='space-y-10 xs:space-y-0 xs:grid xs:grid-cols-2 lg:flex gap-12 lg:space-x-10 mt-20'>
 		{four.set.map((some, index) => {
