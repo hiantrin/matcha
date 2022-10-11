@@ -1,16 +1,17 @@
 import React from 'react'
 import Navbar2 from '../components/Navbar2'
 import Footer from '../components/Footer'
-import LastVisit from '../components/LastVisit'
+import BlockedAccounts from '../components/BlockedAccounts'
 
-const Notifacation = () => {
+const Blocked = () => {
   return (
+
     <div className="relative flex flex-col h-auto md:h-screen  justify-between bg-zinc-100">
-      <Navbar2 />
-      <LastVisit type={false}/>
-      <Footer />
-    </div>
+    <Navbar2 />
+    <BlockedAccounts />
+    <Footer />
+  </div>
   )
 }
 
-export default Notifacation
+export default Blocked

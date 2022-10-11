@@ -7,7 +7,7 @@ const Visited = () => {
   return (
     <div className="relative flex flex-col h-auto md:h-screen  justify-between bg-zinc-100">
       <Navbar2 />
-      <LastVisit />
+      <LastVisit type={true}/>
       <Footer />
     </div>
   )

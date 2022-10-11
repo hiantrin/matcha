@@ -147,6 +147,7 @@ const Filter = () => {
 		getProfiles();
 
 	 	}, [token])
+
 	const mapfour = 
 	<div className='space-y-10 xs:space-y-0 xs:grid xs:grid-cols-2 lg:flex gap-12 lg:space-x-10 mt-20'>
 		{four.set.map((some, index) => {

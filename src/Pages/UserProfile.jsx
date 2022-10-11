@@ -5,7 +5,7 @@ import Footer from '../components/Footer'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { getUserData } from '../components/redux/reducers/userSlice'
-import getInstance from '../components/instances/help2'
+import getInstance, { socket } from '../components/instances/help2'
 
 const UserProfile = () => {
 	const {slug} = useParams();
@@ -17,6 +17,12 @@ const UserProfile = () => {
 	const [isActive, setIsActive] = useState(false)
 	const [match, setMatch] = useState({})
 
+	useEffect(() => {
+		if (match.username)
+			socket.emit('OnlineUser', match.username);
+	}, [match])
+
+	
 	useEffect(() => {
 		const getMymatch = async () => {
 			const res = await getInstance(token).post("/profileUserInfos/userInfos", {
@@ -40,6 +46,7 @@ const UserProfile = () => {
 					username: myuser.data.allUserInfos.userName,
 					fameRating: myuser.data.allUserInfos.fameRating,
 					liked: (myuser.data.allUserInfos.liked === 0 ? false : true),
+					blocked: myuser.data.allUserInfos.blocked,
 				}
 				setMatch(obj);
 				const imgs = {
@@ -60,11 +67,11 @@ const UserProfile = () => {
 				setData(userPrefs);
 				setIsActive(true)
 			}
-			console.log(myuser.data);
 		}
 		if(user.username === slug) navigate("/Profile")
 		else getalldata();
 	}, [])
+	
   return (
     <div className=" h-auto md:h-screen  justify-between bg-zinc-100">
         <div className='w-screen bg-zinc-100 overflow-y-auto'>

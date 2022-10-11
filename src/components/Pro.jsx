@@ -5,12 +5,16 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import { divIcon } from "leaflet";
 import { renderToStaticMarkup } from "react-dom/server";
-import { faLocationDot, faSignLanguage } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
-import { faBan } from '@fortawesome/free-solid-svg-icons'
 import { faFlag } from '@fortawesome/free-solid-svg-icons'
 import ReactStars from 'react-stars'
-import getInstance from './instances/help2';
+import getInstance, { socket } from './instances/help2';
+import { useNavigate } from 'react-router-dom';
+import { faUserLargeSlash } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { addWarn } from './redux/reducers/WarnSlice';
+import { getUserData } from './redux/reducers/userSlice';
 
 const Pro = ({user, imgs, userData, type}) => {
     const token = localStorage.getItem('authToken');
@@ -22,8 +26,31 @@ const Pro = ({user, imgs, userData, type}) => {
     const [tags, setTags] = useState([]);
     const [position, setPosition] = useState([5,5]);
     const [heart, setHeart] = useState(user.liked);
+    const navigate = useNavigate();
+    const [test, setTest ] = useState(null);
+    const proUser = useSelector(getUserData); 
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        if (user.blocked === 1)
+        {
+            setTest(user.username);
+            dispatch(addWarn({warn : "already blocked", username : user.username}))
+            navigate("/Search");
+        }
+
+        const visitpro = async () => {
+            if (!type) {
+                const status = await getInstance(token).post("/setNotifications/messages", {
+                    to: user.username,
+					type: 5
+                })
+                if (status) {
+
+                }
+            }
+        }
+        visitpro();
         const getCountry = async () => {
             const latitude = user.lat;
             const longitude = user.lng;
@@ -51,16 +78,24 @@ const Pro = ({user, imgs, userData, type}) => {
                 setPrefs(userData.userPrefs);
                 setTags(userData.userTags);
                 setPosition([user.lat, user.lng])
-                setOnline("Offline");
             }
             await getCountry();
         
         }
         getimgs();
         
-    }, [user])
+    }, [user,test])
 
-
+	useEffect(() => {
+        socket.on("usersIsOnline", (isOnline) => {
+          if (isOnline)
+            setOnline("Online")
+        })
+        socket.on('usersIsOffline', (isOfline) => {
+                if (isOfline === user.username)
+                    setOnline("Offline")
+        });
+      }, [])
     const iconMarkup = renderToStaticMarkup(
     	<FontAwesomeIcon icon={faLocationDot} size="2x" className='text-red-600'/>
 	);
@@ -70,11 +105,23 @@ const Pro = ({user, imgs, userData, type}) => {
 	});
 
     const handleSocket = async () => {
-        const res = await getInstance(token).post("/likeEndPoint/like", {
+        setHeart(!heart);
+        await getInstance(token).post("/likeEndPoint/like", {
             userName: user.username,
         })
-        setHeart(!heart);
-    } 
+        socket.emit('like', user.username);
+        
+    }
+
+    
+
+    const blockAccount = async () => {
+        await getInstance(token).post("/blockEndPoint/block", {
+            userName: user.username,
+        })
+        dispatch(addWarn({warn : "just blocked", username : user.username}))
+        navigate("/Search");
+    }
 
     const maptag = 
     <div className='flex flex-col space-y-4 '>
@@ -102,15 +149,15 @@ const Pro = ({user, imgs, userData, type}) => {
             <div className=' rounded-full '>
                 <img src={photos[0]} className="w-[150px] h-[150px]  xs:h-[200px] xs:w-[200px]  rounded-full" alt="Avatar"></img>
             </div>
-            <div className='flex mt-3  justify-center items-center mb-5'>
+            <div className={!type ? 'flex mt-3  justify-center items-center mb-5' : "hidden"}>
                 <div className={online === "Offline" ? 'w-3 h-3 rounded-full bg-gray-500 mr-1 ' : 'w-3 h-3 rounded-full bg-green-500 mr-1 '}></div>
                 <h1 className='text-md text-black' >{online}</h1>
             </div>
             <ReactStars  count={5} value={user.fameRating} size={25} color2={'#FFA500'} edit={false} className="mb-5"/>
             <div className={!type ? 'flex gap-20 mb-5' : "hidden"}>
-                <FontAwesomeIcon icon={faHeart} size="2x" className={!heart ? 'text-gray-400 cursor-pointer' : 'text-red-600 cursor-pointer'} onClick={handleSocket}/>
-                <FontAwesomeIcon icon={faBan} size="2x" className='text-gray-400 cursor-pointer'/>
-                <FontAwesomeIcon icon={faFlag} size="2x" className='text-gray-400 cursor-pointer'/>
+                <FontAwesomeIcon icon={faHeart} size="2x" className={!heart ? 'like' : 'like text-red-600'} onClick={handleSocket}/>
+                <FontAwesomeIcon icon={faUserLargeSlash} size="2x" className='like' onClick={blockAccount}/>
+                <FontAwesomeIcon icon={faFlag} size="2x" className='like'/>
             </div>
             <h1 className='text-3xl text-black italic mb-32 '>{user.username}</h1>
             <div className='w-full  rounded-2xl bg-indigo-300 pt-10 pb-16 space-y-5 pl-6 ' >

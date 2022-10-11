@@ -8,9 +8,9 @@ import PrivateRoutes from "./components/privateRoutes/PrivateRoutes";
 import Loading from "./components/Loading/Loading";
 import { useState, useEffect } from "react";
 import { CheckAuth } from "./components/Auth";
-import getInstance from "./components/instances/help2";
-import { addUserData } from "./components/redux/reducers/userSlice";
-import { useDispatch } from 'react-redux';
+import getInstance, { socket } from "./components/instances/help2";
+import { addUserData, getUserData } from "./components/redux/reducers/userSlice";
+import { useDispatch, useSelector } from 'react-redux';
 import EditPreferences from "./Pages/EditPreferences";
 import Visited from "./Pages/Visited";
 
@@ -31,12 +31,16 @@ import Profile from "./Pages/Profile";
 import Search from "./Pages/Search";
 import UserProfile from "./Pages/UserProfile";
 import Notifacation from "./Pages/Notifacation";
+import Blocked from "./Pages/Blocked";
+import Chat from "./Pages/Chat";
 
 
 function App() {
+  
   const [auth, setAuth] = useState(null);
   const [complited, setComplited] = useState(true);
   const [isloading, setIsloading] = useState(false);
+  const [userName, setUserName] = useState("")
   const location = useLocation();
   
 
@@ -48,13 +52,18 @@ function App() {
   }
 
   
-
+  useEffect(() => {
+      if (userName){
+        socket.emit("usersConnected", userName)
+      }
+  }, [userName])
+  
   useEffect(() => {
   setIsloading(true);
-
   const getdata = async () => {
     const token = localStorage.getItem('authToken');
 		const {data : {userInfos}} = await getInstance(token).get('/getInfos/infos');
+    setUserName(userInfos[0].username)
     userInfos[0].birthDay = fix_date(userInfos[0].birthDay.substr(0, 10));
 		dispatch(addUserData(userInfos[0]));
 	}
@@ -95,6 +104,8 @@ function App() {
         <Route path="/Search" element={<Search />} />
         <Route path="/LastViseted" element={<Visited />} />
         <Route path="/Notifications" element={<Notifacation />} />
+        <Route path="/blockedAccounts" element={<Blocked />} />
+        <Route path="/chat" element={<Chat />} />
       </Route>
       <Route path='/' element={<PublicRoutes auth={auth} />}>
         <Route path='/auth' element={<Auth />}></Route>

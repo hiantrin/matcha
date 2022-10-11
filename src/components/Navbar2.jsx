@@ -13,15 +13,19 @@ import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {MenuIcon, XIcon, ChevronLeftIcon} from '@heroicons/react/outline'
+import { useEffect } from 'react';
+import { socket } from './instances/help2';
 
 const Navbar2 = () => {
     const [icon, setIcon] = useState(false)
     const [menu, setMenu] = useState(0)
+    const [notif, setNotif] = useState(0)
 	const handleClick = () => {            
         if (menu === 2 || menu === 0)
             setMenu(1)
         else setMenu(0)
-    } 
+    }
+    
 	const showdrop = (e) =>{
         if (e.icon === faGear) setIcon(!icon)
         else if(e.icon === faRightFromBracket) {
@@ -42,15 +46,22 @@ const Navbar2 = () => {
             localStorage.removeItem('authToken');
             navigate("/auth")
         }
-        else navigate(e.path)
+        else navigate(e.path) 
     }
-    
+
+    useEffect(() => {
+        socket.on("viewd_profile", (data) => {
+            if (data === true)
+            setNotif(pre => pre + 1)
+        })
+    }, [])
+
     const links = [
-        {name : "Trash", icon : faTrashArrowUp  , path : ""},
+        {name : "Trash", icon : faTrashArrowUp  , path : "/blockedAccounts"},
         {name : "Profile", icon : faUser  , path : "/Profile"},
         {name : "Search", icon : faEarthEurope  , path : "/Search"},
         {name : "Last Visited", icon : faClockRotateLeft  , path : "/LastViseted"},
-        {name : "Messages", icon : faCommentDots  , path : ""},
+        {name : "Messages", icon : faCommentDots  , path : "/chat"},
         {name : "Notifications", icon : faBell  , path : "/Notifications"},
         {name : "Settings", icon : faGear  , path : ""},
         {name : "Loug out", icon : faRightFromBracket  , path : ""},
@@ -68,8 +79,9 @@ const Navbar2 = () => {
         <div className='hidden xs:flex justif-center items-center space-x-2'>
             {links.map((tg, id) => {
                 return (
-                    <div className='text-indigo-600 py-1 px-2 rounded-full bg-white cursor-pointer hover:bg-gray-200'   key={id} onClick={() => showdrop(tg)}>
+                    <div className='text-indigo-600 relative py-1 px-2 rounded-full bg-white cursor-pointer hover:bg-gray-200'   key={id} onClick={() => showdrop(tg)}>
                         <FontAwesomeIcon icon={tg.icon} size="1x" />
+                       { tg.name === "Notifications" && notif !== 0 && <div className="inline-flex absolute -top-2 -right-2 justify-center items-center w-6 h-6 text-xs font-bold text-white bg-red-500 rounded-full border-2 border-white dark:border-gray-900">{notif}</div>}
                     </div>
                 )
             })}
