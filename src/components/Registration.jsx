@@ -223,7 +223,8 @@ const Registration = () => {
     
     const send_to_back = async (form) => {
         const cont = country;
-        setTg(tg);
+        setTg(all.tags);
+        console.log(all.tags);
         const token = localStorage.getItem('authToken');
         const res = await getInstance(token).post("/stepForm/stepFormValidator", {
             gender : form.gender,
@@ -240,6 +241,7 @@ const Registration = () => {
             longitude : location.longitude,
             country : cont,
         })
+        console.log(res);
         if (res.data.status === 0)
         {
             navigate('/auth');

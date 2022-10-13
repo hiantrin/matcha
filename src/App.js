@@ -59,26 +59,27 @@ function App() {
   }, [userName])
   
   useEffect(() => {
-  setIsloading(true);
-  const getdata = async () => {
-    const token = localStorage.getItem('authToken');
-		const {data : {userInfos}} = await getInstance(token).get('/getInfos/infos');
-    setUserName(userInfos[0].username)
-    userInfos[0].birthDay = fix_date(userInfos[0].birthDay.substr(0, 10));
-		dispatch(addUserData(userInfos[0]));
-	}
+    setIsloading(true);
+    const getdata = async (id) => {
+      const token = localStorage.getItem('authToken');
+      const {data : {userInfos}} = await getInstance(token).get('/getInfos/infos');
+      setUserName(userInfos[0].username)
+      userInfos[0].birthDay = fix_date(userInfos[0].birthDay.substr(0, 10));
+      userInfos[0].userId = id
+      dispatch(addUserData(userInfos[0]));
+    }
 
-  const check = async () => {
-      const res = await CheckAuth();
-      setAuth(res.status ? 'success' : 'failed');
-	  if (res.status) setComplited(res.complited);
-      if (res.status) await getdata();
-      setTimeout(() => {
-          setIsloading(false);
-      }, 500)
-      
-  }
-  check();
+    const check = async () => {
+        const res = await CheckAuth();
+        setAuth(res.status ? 'success' : 'failed');
+      if (res.status) setComplited(res.complited);
+        if (res.status) await getdata(res.userId);
+        setTimeout(() => {
+            setIsloading(false);
+        }, 500)
+        
+    }
+    check();
    
   },[location, dispatch])
   if (isloading)

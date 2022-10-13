@@ -55,7 +55,6 @@ const LastVisit = ({type}) => {
 			})
 		}
 	}
-	console.log(notif);
 	const map = 
 	<div className='w-full flex flex-col items-center justify-between space-y-4 '>
 		{notif.map((element, id) => {
