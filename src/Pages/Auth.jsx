@@ -5,8 +5,6 @@ import Footer from '../components/Footer'
 import Down from '../components/Down'
 
 const Auth = () => {
-
-
   return (
 	<>
 		<Navbar />

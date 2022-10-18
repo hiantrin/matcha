@@ -1,3 +1,4 @@
+import React from "react";
 import Home from "./Pages/Home";
 import Auth from "./Pages/Auth";
 import Register from "./Pages/Register";
@@ -9,10 +10,11 @@ import Loading from "./components/Loading/Loading";
 import { useState, useEffect } from "react";
 import { CheckAuth } from "./components/Auth";
 import getInstance, { socket } from "./components/instances/help2";
-import { addUserData, getUserData } from "./components/redux/reducers/userSlice";
-import { useDispatch, useSelector } from 'react-redux';
+import { addUserData } from "./components/redux/reducers/userSlice";
+import { useDispatch } from 'react-redux';
 import EditPreferences from "./Pages/EditPreferences";
 import Visited from "./Pages/Visited";
+import Password from "./Pages/Password";
 
 
 
@@ -111,6 +113,7 @@ function App() {
       <Route path='/' element={<PublicRoutes auth={auth} />}>
         <Route path='/auth' element={<Auth />}></Route>
         <Route path='/auth/register' element={<Register />}/>
+        <Route path='/resetPassword/confirmEmail' element={<Password />}/>
       </Route>
       <Route path="*" element={<Error404 />}/>
 		</Routes>

@@ -47,6 +47,7 @@ const UserProfile = () => {
 					fameRating: myuser.data.allUserInfos.fameRating,
 					liked: (myuser.data.allUserInfos.liked === 0 ? false : true),
 					blocked: myuser.data.allUserInfos.blocked,
+					reported: myuser.data.allUserInfos.reported,
 				}
 				setMatch(obj);
 				const imgs = {
@@ -70,6 +71,8 @@ const UserProfile = () => {
 		}
 		if(user.username === slug) navigate("/Profile")
 		else getalldata();
+
+		 // eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	
   return (

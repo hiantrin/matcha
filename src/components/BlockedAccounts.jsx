@@ -10,12 +10,13 @@ const BlockedAccounts = () => {
     const token = localStorage.getItem('authToken');
 	const [data, setData] = useState([]);
 
-	const getBlocked = async () => {
-		const res = await getInstance(token).get("/getBlockedProfiles/Bockedprofiles");
-		setData(res.data.profileBlocked);
-	}
     useEffect(() => {
+		const getBlocked = async () => {
+			const res = await getInstance(token).get("/getBlockedProfiles/Bockedprofiles");
+			setData(res.data.profileBlocked);
+		}
 		getBlocked();
+		 // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 	const waitUnblock = async (username) => {
@@ -45,10 +46,10 @@ const BlockedAccounts = () => {
 	<div className='w-full flex flex-col items-center justify-between space-y-4 '>
 		{data.map((element, id) => {
 			return(
-				<div className='min-w-[350px] p-4 flex bg-white rounded-xl items-center justify-between transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300' key={id}>
+				<div className='min-w-[250px] xs:min-w-[350px] p-1 xs:p-4 flex bg-white rounded-xl items-center justify-between transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300' key={id}>
 					<div className='flex items-center justify-center'>
-						<img src={element.avatar} className="border rounded-full mr-5 w-12 h-12"></img>
-						<h1 className='text-black font-bold text-sm'>{element.username}</h1>
+						<img alt="img" src={element.avatar} className="border rounded-full mr-5 w-12 h-12"></img>
+						<h1 className='text-black font-bold text-xs  xs:text-sm'>{element.username}</h1>
 					</div>
 					<FontAwesomeIcon icon={faDeleteLeft} style={{fontSize : '1.4em'}} className="cursor-pointer text-red-600" onClick={() => unblock(element.username) } />
 				</div>

@@ -4,13 +4,14 @@ import Footer from '../components/Footer'
 import BlockedAccounts from '../components/BlockedAccounts'
 
 const Blocked = () => {
-  return (
-
-    <div className="relative flex flex-col h-auto md:h-screen  justify-between bg-zinc-100">
-    <Navbar2 />
-    <BlockedAccounts />
-    <Footer />
-  </div>
+	return (
+		<div className=" h-auto md:h-screen flex flex-col justify-between bg-zinc-100">
+			<div className=' w-screen bg-zinc-100 overflow-y-auto'>
+				<Navbar2 />
+				<BlockedAccounts />
+			</div>
+			<Footer />
+		</div>
   )
 }
 

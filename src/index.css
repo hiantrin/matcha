@@ -15,6 +15,7 @@
 	}
 }
 
+
 .Box {
 	
 	background-image: url('./assets/img.png');
@@ -45,7 +46,8 @@
 .leaflet-container{
 	height: 80%;
 	width: 100%;
-	@apply shadow-2xl shadow-gray-600 rounded-xl
+	@apply shadow-2xl shadow-gray-600 rounded-xl;
+	z-index: 0;
 }
 
 
@@ -162,8 +164,8 @@ input[type=range]::-webkit-slider-thumb {
 	  }
 	  .slidertags .progress{
 		height: 100%;
-		left: 25%;
-		right: 25%;
+		left: 0%;
+		right: 20%;
 		position: absolute;
 		border-radius: 5px;
 		background: #4f46e5;
@@ -183,3 +185,4 @@ input[type=range]::-webkit-slider-thumb {
 		-moz-appearance: none;
 		cursor: pointer;
 	  }
+

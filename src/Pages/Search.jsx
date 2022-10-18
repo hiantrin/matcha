@@ -2,7 +2,6 @@ import React from 'react'
 import Navbar2 from '../components/Navbar2'
 import Footer from '../components/Footer'
 import Filter from '../components/Filter'
-import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import swal from 'sweetalert'
 import { getWarn } from '../components/redux/reducers/WarnSlice'
@@ -12,7 +11,6 @@ import { addWarn } from '../components/redux/reducers/WarnSlice'
 
 const Search = () => {
 	const warn = useSelector(getWarn);
-	const location = useLocation();
 	const dispatch = useDispatch();
 	const blocked = () => { 
 		swal({
@@ -40,6 +38,7 @@ const Search = () => {
 			}
 			dispatch(addWarn({warn : "nothing", username : "no one"}))
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
   return (
     <>

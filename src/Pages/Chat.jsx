@@ -5,9 +5,11 @@ import Messages from '../components/Messages'
 
 const Chat = () => {
   return (
-    <div className="relative flex flex-col h-auto md:h-screen  justify-between bg-zinc-100">
+    <div className=" h-auto md:h-screen flex flex-col justify-between bg-zinc-100">
+			  <div className=' w-screen bg-zinc-100 overflow-y-auto'>
       <Navbar2 />
       <Messages />
+      </div>
       <Footer />
     </div>
   )

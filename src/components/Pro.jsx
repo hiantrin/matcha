@@ -12,9 +12,9 @@ import ReactStars from 'react-stars'
 import getInstance, { socket } from './instances/help2';
 import { useNavigate } from 'react-router-dom';
 import { faUserLargeSlash } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addWarn } from './redux/reducers/WarnSlice';
-import { getUserData } from './redux/reducers/userSlice';
+import swal from 'sweetalert';
 
 const Pro = ({user, imgs, userData, type}) => {
     const token = localStorage.getItem('authToken');
@@ -28,8 +28,8 @@ const Pro = ({user, imgs, userData, type}) => {
     const [heart, setHeart] = useState(user.liked);
     const navigate = useNavigate();
     const [test, setTest ] = useState(null);
-    const proUser = useSelector(getUserData); 
     const dispatch = useDispatch();
+    const [reported, setReported] = useState(user.reported === 0 ? false : true);
 
     useEffect(() => {
         if (user.blocked === 1)
@@ -83,7 +83,7 @@ const Pro = ({user, imgs, userData, type}) => {
         
         }
         getimgs();
-        
+        		// eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user,test])
 
 	useEffect(() => {
@@ -95,6 +95,7 @@ const Pro = ({user, imgs, userData, type}) => {
                 if (isOfline === user.username)
                     setOnline("Offline")
         });
+        		// eslint-disable-next-line react-hooks/exhaustive-deps
       }, [])
     const iconMarkup = renderToStaticMarkup(
     	<FontAwesomeIcon icon={faLocationDot} size="2x" className='text-red-600'/>
@@ -113,8 +114,6 @@ const Pro = ({user, imgs, userData, type}) => {
         
     }
 
-    
-
     const blockAccount = async () => {
         await getInstance(token).post("/blockEndPoint/block", {
             userName: user.username,
@@ -122,6 +121,41 @@ const Pro = ({user, imgs, userData, type}) => {
         dispatch(addWarn({warn : "just blocked", username : user.username}))
         navigate("/Search");
     }
+
+    const reportIt = async () => {
+       
+        const res = await getInstance(token).post("/reportEndPoint/report",{
+            userName: user.username
+        })
+		console.log(res);
+		if(res.data.status === 0)
+		{
+			setReported(!reported);
+			swal({
+				title: "Cooool",
+				text: `You have reported ${user.username} successfully`,
+				icon: "success",
+				buttons: "close"
+			})
+		} else {
+			if (res.data.errors === "User already reported.")
+			{
+				swal({
+					title: "OOOOOPs!!!",
+					text: "User already reported.",
+					icon: "error",
+					buttons: "close"
+				})
+			} else {
+				swal({
+					title: "Nooooop!!!!",
+					text: "something goes wrong Please try again",
+					icon: "error",
+					buttons: "close"
+				})
+			}
+    	}
+	}
 
     const maptag = 
     <div className='flex flex-col space-y-4 '>
@@ -154,10 +188,10 @@ const Pro = ({user, imgs, userData, type}) => {
                 <h1 className='text-md text-black' >{online}</h1>
             </div>
             <ReactStars  count={5} value={user.fameRating} size={25} color2={'#FFA500'} edit={false} className="mb-5"/>
-            <div className={!type ? 'flex gap-20 mb-5' : "hidden"}>
+            <div className={!type ? 'flex gap-10 xs:gap-20 mb-5' : "hidden"}>
                 <FontAwesomeIcon icon={faHeart} size="2x" className={!heart ? 'like' : 'like text-red-600'} onClick={handleSocket}/>
                 <FontAwesomeIcon icon={faUserLargeSlash} size="2x" className='like' onClick={blockAccount}/>
-                <FontAwesomeIcon icon={faFlag} size="2x" className='like'/>
+                <FontAwesomeIcon icon={faFlag} size="2x" className={!reported ? 'like' : 'like text-red-600'} onClick={reportIt}/>
             </div>
             <h1 className='text-3xl text-black italic mb-32 '>{user.username}</h1>
             <div className='w-full  rounded-2xl bg-indigo-300 pt-10 pb-16 space-y-5 pl-6 ' >

@@ -3,7 +3,7 @@ import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 import { CheckAuth } from "../components/Auth";
 import Navbar2 from "../components/Navbar2";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 const Home = () =>  {

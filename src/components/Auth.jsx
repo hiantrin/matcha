@@ -1,11 +1,7 @@
-import { useSelector } from 'react-redux';
 import instance from './instances/helpaxios';
-import { getUserData } from './redux/reducers/userSlice';
 
 
 export const CheckAuth = async () => {
-  // const user = useSelector(getUserData);
-  // console.log(user)
     const auth = localStorage.getItem("authToken");
     const initiat  = {
       status : false,
@@ -29,4 +25,3 @@ export const CheckAuth = async () => {
         return initiat
       }
 }
-

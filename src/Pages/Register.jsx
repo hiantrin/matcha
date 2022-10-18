@@ -9,7 +9,7 @@ const Register = () => {
     <>
 		<Navbar />
 		<Signup />
-		<Down  name="Sing Up" />
+		  <Down  name="Sing Up" />
 		<Footer />
     </>
   )

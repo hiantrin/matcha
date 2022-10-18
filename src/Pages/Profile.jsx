@@ -32,6 +32,7 @@ const Profile = () => {
 			setIsActive(true)
 		}
 		getalldata();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	return (
     	<div className=" h-auto md:h-screen  justify-between bg-zinc-100">

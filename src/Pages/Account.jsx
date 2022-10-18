@@ -8,7 +8,7 @@ const Account = () => {
   return (
     <>
         <div className=" h-auto md:h-screen flex flex-col justify-between bg-zinc-100">
-			<div className=' w-screen bg-zinc-100 overflow-y-auto'>
+			  <div className=' w-screen bg-zinc-100 overflow-y-auto'>
                 <Navbar2 />
                 <Personalinfos />
 			</div>

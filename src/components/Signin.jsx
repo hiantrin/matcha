@@ -91,6 +91,7 @@ const Signin = () => {
 		return errors;
 	}
 
+
 	return (
 		<>
 		<div className='h-auto lg:h-screen w-screen bg-zinc-100  px-[15%] py-[140px] overflow-y-auto ' >
@@ -111,7 +112,7 @@ const Signin = () => {
 					</div>
 					<p className='text-red-600 ml-3 text-[0.7rem] font-bold'>{formErrors.password}</p>
 					<div className='w-[250px] sm:w-[350px]  grid justify-items-end mt-6'>
-						<h1 className='text-xs font-bold italic mb-2'>forget password?</h1>
+						<h1 className='text-xs font-bold italic mb-2 cursor-pointer' onClick={() => navigate("/resetPassword/confirmEmail")}>forget password?</h1>
 					</div>
 					<button className='w-[250px] sm:w-[350px] h-[30px] text-xs font-bold' onClick={handleclick}>Login in</button>
 					
@@ -122,7 +123,6 @@ const Signin = () => {
 						<h1 className=' text-white font-bold mb-8'> Shop With Confidence </h1>
 						<h1 className='text-xs text-white '> Browse a catalog of ecommerce services by our vetted experts or submit custom request</h1>
 					</div>
-					
 				</div>
 			</div>
 			{/* <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover /> */}

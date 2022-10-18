@@ -39,6 +39,7 @@ const Gallery = () => {
 			}
 		}
 		getData();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const getPhotos = (index) => {
@@ -93,7 +94,7 @@ const Gallery = () => {
 
 	const send_to_back = async () => {
 		
-		const res =  await getInstance(token).post("/editPics/editPicsValidator", {
+		await getInstance(token).post("/editPics/editPicsValidator", {
 			avatarSrc: photos.imgs[0],
 			profilePic1: photos.imgs[1],
 			profilePic2: photos.imgs[2],

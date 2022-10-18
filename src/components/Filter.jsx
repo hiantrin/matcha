@@ -27,9 +27,9 @@ const Filter = () => {
 		step : 1,
 	})
 	const [tags, setTags] = useState({
-		min : 1,
+		min : 0,
 		max : 5,
-		minValue : 2,
+		minValue : 0,
 		maxValue : 4,
 		step : 1,
 	})
@@ -83,16 +83,11 @@ const Filter = () => {
 		let tag = parseInt(e.target.value);
 
 		const s = document.getElementById("sliderProgresstags");
-        if(e.target.classList[0] === "tag-min"){
-			if(parseInt(tags.maxValue - tag) < tagGap)
-				tag = tags.maxValue - tagGap
-			setTags({...tags, minValue : tag})
-            s.style.left = ((tag * 25) - 25)  + "%";
-        } else {
+        if(e.target.classList[0] === "tag-max"){
 			if (tag - tags.minValue < tagGap)
 				tag = tags.minValue + tagGap;
 			setTags({...tags, maxValue : tag})
-            s.style.right = (100 - ((tag * 25) - 25)) + "%";
+            s.style.right = (100 - ((tag * 20))) + "%";
 		}
 	}
 
@@ -133,6 +128,7 @@ const Filter = () => {
 			return dis / 1000;
 		}
 	}
+	
 	useEffect(() => {
 		const getProfiles = async () => {
 			const response = await getInstance(token).get('/filter/sex_prefs');
@@ -145,7 +141,7 @@ const Filter = () => {
 			setProfiles(FilterData);
 		}
 		getProfiles();
-
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	 	}, [token])
 
 	const mapfour = 
@@ -225,7 +221,6 @@ const Filter = () => {
 								<div className="progress" id="sliderProgresstags"></div>
 							</div>
 							<div className="range-inputtags ">
-								<input type="range" className="tag-min" min={tags.min} max={tags.max} value={tags.minValue} step={tags.step} onChange={(e) => handletags(e)} />
 								<input type="range" className="tag-max" min={tags.min} max={tags.max} value={tags.maxValue} step={tags.step} onChange={(e) => handletags(e)} />
 							</div>
 						</div>
