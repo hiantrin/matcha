@@ -44,7 +44,7 @@ const ResetPassword = () => {
 					<div className='max-w-[350px] h-[30px] rounded-xl bg-gray-200 flex justify-center px-3  left-shadow mb-8'>
 						<input type="text" name="email" placeholder='Please enter your email' className='w-[250px] sm:w-[350px] bg-transparent outline-none  placeholder:text-[0.7rem] font-bold' value={email} onChange={(e) => setEmail(e.target.value)}></input>
 					</div>
-					<div className='w-[92%] flex justify-end mb-5'>
+					<div className='w-[350px] flex justify-end mb-5'>
 						<button className='py-1 px-3' onClick={sendemail}>send Reset Instructions</button>
 					</div>
 					<h1 className='text-xs font-bold'>Just remembered? <span className='text-indigo-600 cursor-pointer' onClick={() => navigate("/auth")}>log in</span></h1>

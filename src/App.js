@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import EditPreferences from "./Pages/EditPreferences";
 import Visited from "./Pages/Visited";
 import Password from "./Pages/Password";
+import Reset from "./Pages/Reset";
 
 
 
@@ -114,6 +115,7 @@ function App() {
         <Route path='/auth' element={<Auth />}></Route>
         <Route path='/auth/register' element={<Register />}/>
         <Route path='/resetPassword/confirmEmail' element={<Password />}/>
+        <Route path='/resetPassword/reset/:slug' element={<Reset />}/>
       </Route>
       <Route path="*" element={<Error404 />}/>
 		</Routes>
