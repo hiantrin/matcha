@@ -138,3 +138,73 @@ These instructions will get you a copy of the project up and running on your loc
 
 <img width="1591" alt="Screen Shot 2022-11-29 at 6 41 57 PM" src="https://user-images.githubusercontent.com/53905820/204603005-365f9d26-e3e5-40a9-865d-15568341e71d.png">
 
+## Responsive
+
+> home
+
+<img width="391" alt="Screen Shot 2022-11-29 at 5 11 00 PM" src="https://user-images.githubusercontent.com/53905820/204606104-3c17e9d7-f0c6-4158-b892-2f701d6a13af.png">
+
+
+> Sign in
+
+<img width="404" alt="Screen Shot 2022-11-29 at 5 13 39 PM" src="https://user-images.githubusercontent.com/53905820/204606168-105da706-13bd-4dd5-8e3f-b8ab21c3673f.png">
+
+
+> Sign up
+
+<img width="395" alt="Screen Shot 2022-11-29 at 6 07 30 PM" src="https://user-images.githubusercontent.com/53905820/204606220-dfd95609-c2a2-4c66-bc0c-4c56f67c46a6.png">
+
+
+> Forget password 
+
+<img width="401" alt="Screen Shot 2022-11-29 at 6 08 17 PM" src="https://user-images.githubusercontent.com/53905820/204606295-fbae737e-dd2a-469c-ae22-b46e8bd6ea42.png">
+
+> Reset password
+
+<img width="382" alt="Screen Shot 2022-11-29 at 6 18 24 PM" src="https://user-images.githubusercontent.com/53905820/204606348-6a5e8b83-0692-4363-8f89-31d21ce8188c.png">
+
+> Complete Profile
+
+<img width="389" alt="Screen Shot 2022-11-29 at 6 25 05 PM" src="https://user-images.githubusercontent.com/53905820/204606446-adc983e7-4ec5-416a-835d-186e36418f7a.png">
+
+
+> Profile
+
+<img width="375" alt="Screen Shot 2022-11-29 at 6 29 02 PM" src="https://user-images.githubusercontent.com/53905820/204606520-702d86c0-eaa6-49ac-ad6b-b835b83c7a67.png">
+
+> Change profile infos
+
+<img width="377" alt="Screen Shot 2022-11-29 at 6 30 52 PM" src="https://user-images.githubusercontent.com/53905820/204606570-a2089726-ea03-4304-9c40-02287a4d7a5b.png">
+
+
+> Change Photos
+
+<img width="376" alt="Screen Shot 2022-11-29 at 6 32 27 PM" src="https://user-images.githubusercontent.com/53905820/204606622-b32c3df1-f865-4a17-b66b-ce9b509af7b6.png">
+
+
+> Change Preferences
+
+<img width="383" alt="Screen Shot 2022-11-29 at 6 36 26 PM" src="https://user-images.githubusercontent.com/53905820/204606676-5128613e-85a4-4c77-89a3-e5d5ce15c86e.png">
+
+
+> Search
+
+<img width="381" alt="Screen Shot 2022-11-29 at 6 39 33 PM" src="https://user-images.githubusercontent.com/53905820/204606743-52e2fdac-c3b3-403e-9ab0-c42de129d00d.png">
+
+> History
+
+<img width="377" alt="Screen Shot 2022-11-29 at 6 40 43 PM" src="https://user-images.githubusercontent.com/53905820/204606940-b8841527-a426-4f3e-bacd-07047ba441d2.png">
+
+> Messages
+
+<img width="375" alt="Screen Shot 2022-11-29 at 6 50 56 PM" src="https://user-images.githubusercontent.com/53905820/204607179-aba0400b-ef81-4998-a843-d89e4d65e340.png">
+
+> Notifications
+
+<img width="380" alt="Screen Shot 2022-11-29 at 6 46 58 PM" src="https://user-images.githubusercontent.com/53905820/204607221-bb263b50-c466-48c9-be00-60d7bce19da6.png">
+
+> Blocked accounts
+
+<img width="386" alt="Screen Shot 2022-11-29 at 6 43 04 PM" src="https://user-images.githubusercontent.com/53905820/204606858-9d1d4fbe-1baa-4ab1-8552-e4ccf481115f.png">
+
+
