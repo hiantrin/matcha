@@ -69,3 +69,31 @@ These instructions will get you a copy of the project up and running on your loc
 ## Full Screen
 
 > home
+
+> Sign in
+
+> Sign up
+
+> Forget password 
+
+> Reset password
+
+> Complete Profile
+
+> Profile
+
+> Change profile infos
+
+> Change Photos
+
+> Change Preferences
+
+> Search
+
+> History
+
+> Messages
+
+> Notifications
+
+> Blocked accounts
